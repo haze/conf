@@ -1,1 +1,2 @@
-../recompile_antibody
+#!/bin/sh
+antibody bundle < ~/.antibody.txt > ~/.zsh_plugins.sh
