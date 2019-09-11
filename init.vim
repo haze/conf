@@ -12,6 +12,8 @@ set noshowmode
 set wildmenu
 set termguicolors
 set clipboard=unnamed
+set autoread | au CursorHold * checktime | call feedkeys("lh")
+
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
@@ -27,20 +29,20 @@ Plug 'itchyny/lightline.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'skywind3000/vim-preview'
 Plug 'ziglang/zig.vim'
-Plug 'chriskempson/base16-vim'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'dim13/smyck.vim'
-Plug 'sainnhe/edge'
-Plug 'kjssad/quantum.vim'
 Plug 'hazebooth/vim-hazepunk'
-Plug 'sainnhe/gruvbox-material'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'kamykn/dark-theme.vim'
-Plug 'ntk148v/vim-horizon'
 Plug 'maksimr/Lucius2'
-Plug 'scottymoon/vim-twilight'
+Plug 'vim-scripts/wombat256.vim'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'lithammer/vim-eighties'
+Plug 'Yggdroot/indentLine'
+Plug 'ayu-theme/ayu-vim'
+Plug 'scrooloose/nerdtree'
+Plug 'evanleck/vim-svelte'
+
+
 " Plug 'parsonsmatt/intero-neovim'
 
 call plug#end()
@@ -53,7 +55,10 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 filetype plugin indent on
 syntax enable
 set background=dark
-colorscheme lucius
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 0
+let ayucolor="dark"
+colorscheme ayu
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -73,7 +78,16 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
+" for js
+autocmd FileType javascript noremap <buffer> <c-f> :call JsBeautify()<cr>
+" for json
+autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+" for jsx
+autocmd FileType javascript,jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 set autoread
 command! W  write
 " command! Wq  write
@@ -82,9 +96,17 @@ command! W  write
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
 let g:rustfmt_autosave = 1
+" let g:rustfmt_command = "cargo fmt -- "
 
 set updatetime=300
 set cmdheight=2
 set hidden
 set signcolumn=yes
 set shortmess+=c
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+map <C-e> :NERDTreeToggle<CR>
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
