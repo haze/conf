@@ -7,13 +7,11 @@ endif
 set tabstop=4 expandtab shiftwidth=2 smarttab autoindent
 " Required:
 let g:python_host_prog = '/usr/bin/python3'
-set runtimepath+=/Users/haze/.cache/dein/repos/github.com/Shougo/dein.vim
 set noshowmode
 set wildmenu
 set termguicolors
 set clipboard=unnamed
 set autoread | au CursorHold * checktime | call feedkeys("lh")
-
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
@@ -33,15 +31,21 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'hazebooth/vim-hazepunk'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'maksimr/Lucius2'
 Plug 'vim-scripts/wombat256.vim'
 Plug 'maksimr/vim-jsbeautify'
-Plug 'lithammer/vim-eighties'
-Plug 'Yggdroot/indentLine'
-Plug 'ayu-theme/ayu-vim'
+" Plug 'Yggdroot/indentLine'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'evanleck/vim-svelte'
-
+Plug 'challenger-deep-theme/vim'
+Plug 'hazebooth/vimdiscord'
+Plug 'caksoylar/vim-mysticaltutor'
+Plug 'sjl/badwolf'
+Plug 'chriskempson/base16-vim'
+Plug 'jdsimcoe/abstract.vim'
+Plug 'dikiaap/minimalist'
+Plug 'christophermca/meta5'
+Plug 'yorickpeterse/happy_hacking.vim'
 
 " Plug 'parsonsmatt/intero-neovim'
 
@@ -58,7 +62,12 @@ set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 let ayucolor="dark"
-colorscheme ayu
+colorscheme minimalist
+
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -109,4 +118,25 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 map <C-e> :NERDTreeToggle<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
 
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
+      \ },
+      \ }
+
+nnoremap <S-j> :m .+1<CR>==
+nnoremap <S-k> :m .-2<CR>==
+" inoremap <S-j> <Esc>:m .+1<CR>==gi
+" inoremap <S-k> <Esc>:m .-2<CR>==gi
+vnoremap <S-j> :m '>+1<CR>gv=gv
+vnoremap <S-k> :m '<-2<CR>gv=gv
