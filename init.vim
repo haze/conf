@@ -128,11 +128,12 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'cocstatus', 'currentfunction', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction'
+      \   'currentfunction': 'CocCurrentFunction',
+      \   'gitbranch': 'fugitive#head'
       \ },
       \ }
 
@@ -152,6 +153,13 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+" Send x's to blackhole reg
+
+" nnoremap x "_x
+" vnoremap x "_x
+
+nnoremap c "_c
+vnoremap c "_c
 
 " This is the default extra key bindings
 let g:fzf_action = {
@@ -161,7 +169,7 @@ let g:fzf_action = {
 
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
+" let g:fzf_layout = { 'down': '~40%' }
 
 " In Neovim, you can set up fzf window using a Vim command
 " let g:fzf_layout = { 'window': 'enew' }

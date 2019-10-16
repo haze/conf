@@ -21,7 +21,7 @@ export PATH=$HOME/.cabal/bin:$PATH
 export PATH=$HOME/.ghcup/bin:$PATH
 export PATH=$HOME/Library/Python/3.7/bin:$PATH
 export PATH=/Library/TeX/texbin/:$PATH
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
 source $HOME/.ghcup/env
 
 alias cat=bat
