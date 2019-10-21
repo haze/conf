@@ -11,7 +11,6 @@ export CXX=clang
 export PATH=$HOME/.cargo/bin/:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/google-cloud-sdk/bin:$PATH
-export RUSTC_WRAPPER=sccache
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.nimble/bin:$PATH
