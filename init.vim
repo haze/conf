@@ -1,17 +1,17 @@
-set mouse=a
-set nu
-"dein Scripts-----------------------------
+
 if &compatible
   set nocompatible               " Be iMproved
 endif
+
+set mouse=a
+set nu
 set tabstop=4 expandtab shiftwidth=2 smarttab autoindent
-" Required:
-let g:python_host_prog = '/usr/bin/python3'
 set noshowmode
 set wildmenu
 set termguicolors
 set clipboard=unnamed
-set autoread | au CursorHold * checktime | call feedkeys("lh")
+let g:python_host_prog = '/Library/Frameworks/Python.framework/Versions/3.7/bin/python3'
+
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
@@ -20,56 +20,43 @@ call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
-Plug 'chase/focuspoint-vim'
-Plug 'Shougo/defx.nvim'
 Plug 'rust-lang/rust.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'skywind3000/vim-preview'
 Plug 'ziglang/zig.vim'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'hazebooth/vim-hazepunk'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'vim-scripts/wombat256.vim'
-Plug 'maksimr/vim-jsbeautify'
-" Plug 'Yggdroot/indentLine'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'evanleck/vim-svelte'
-Plug 'challenger-deep-theme/vim'
 Plug 'hazebooth/vimdiscord'
-Plug 'caksoylar/vim-mysticaltutor'
-Plug 'sjl/badwolf'
-Plug 'chriskempson/base16-vim'
-Plug 'jdsimcoe/abstract.vim'
-Plug 'dikiaap/minimalist'
-Plug 'christophermca/meta5'
-Plug 'yorickpeterse/happy_hacking.vim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'itchyny/vim-cursorword'
+Plug 'yuezk/vim-js'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'flrnd/plastic.vim'
 
 " Plug 'parsonsmatt/intero-neovim'
 
 call plug#end()
 
-" Add rust comments:
+" Rust comments:
 autocmd FileType rust setlocal commentstring=//\ %s
-
-" Required:
+" Json comments
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
 filetype plugin indent on
 syntax enable
 set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
-let ayucolor="dark"
-colorscheme minimalist
+colorscheme plastic
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
-
+let g:vim_jsx_pretty_colorful_config = 1
+let g:polyglot_disabled = ['jsx']
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -89,16 +76,6 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-" for js
-autocmd FileType javascript noremap <buffer> <c-f> :call JsBeautify()<cr>
-" for json
-autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
-" for jsx
-autocmd FileType javascript,jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
-" for html
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 set autoread
 command! W  write
 " command! Wq  write

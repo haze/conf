@@ -8,7 +8,7 @@ yabai -m config window_opacity               off
 yabai -m config window_shadow                float
 yabai -m config window_border                on
 yabai -m config window_border_width          2
-yabai -m config active_window_border_color   0x64ffffff
+yabai -m config active_window_border_color   0x64FFFFFF
 yabai -m config insert_window_border_color   0x00000000
 yabai -m config normal_window_border_color   0x00FFFFFF
 yabai -m config window_border_radius         1
@@ -27,3 +27,7 @@ yabai -m config bottom_padding               20
 yabai -m config left_padding                 20
 yabai -m config right_padding                20
 yabai -m config window_gap                   15
+
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Airmail$" manage=off
