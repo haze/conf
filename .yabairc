@@ -31,3 +31,5 @@ yabai -m config window_gap                   15
 yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Airmail$" manage=off
+yabai -m rule --add app="^Xcode$" manage=off
+yabai -m rule --add app="^Transmission$" manage=off

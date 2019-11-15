@@ -12,6 +12,17 @@ set termguicolors
 set clipboard=unnamed
 let g:python_host_prog = '/Library/Frameworks/Python.framework/Versions/3.7/bin/python3'
 
+"Searching 
+nnoremap / /\v
+vnoremap / /\v
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+map <leader><space> :let @/=''<cr> " clear search
+
+
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
