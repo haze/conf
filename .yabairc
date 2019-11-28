@@ -33,3 +33,8 @@ yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Airmail$" manage=off
 yabai -m rule --add app="^Xcode$" manage=off
 yabai -m rule --add app="^Transmission$" manage=off
+yabai -m rule --add app="^App Store$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
+yabai -m rule --add app="^Music$" manage=off
+yabai -m rule --add app="^Handbrake$" manage=off
+yabai -m rule --add app="^Paw$" manage=off
