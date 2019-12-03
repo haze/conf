@@ -10,6 +10,7 @@ set noshowmode
 set wildmenu
 set termguicolors
 set clipboard=unnamed
+set laststatus=0
 
 "Searching 
 nnoremap / /\v
@@ -32,7 +33,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 Plug 'rust-lang/rust.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'Raimondi/delimitMate'
+Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'nathanaelkane/vim-indent-guides'
@@ -44,7 +45,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'yuezk/vim-js'
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'flrnd/plastic.vim'
+" Plug 'flrnd/plastic.vim'
+Plug 'jdsimcoe/panic.vim'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
@@ -58,7 +61,7 @@ syntax enable
 set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
-colorscheme plastic
+colorscheme panic
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -132,6 +135,8 @@ vnoremap <S-k> :m '<-2<CR>gv=gv
 " fzf key bindings
 nnoremap <silent> <S-F> :Files<CR>
 nnoremap <silent> <S-Tab> :Rg<CR>
+
+" Show/Hide 
 
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -218,3 +223,13 @@ command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
       \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--color', 'fg:-1,bg:-1,hl:230,fg+:3,bg+:233,hl+:229','--color', 'info:150,prompt:110,spinner:150,pointer:167,marker:174']}), <bang>0)
+
+" Print group under cursor
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+let g:pear_tree_repeatable_expand = 0

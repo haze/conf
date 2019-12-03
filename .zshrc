@@ -1,8 +1,3 @@
-export AM_SHOW_PROCESS_TIME=2
-export AM_DIR_EXPANSION_LEVEL=2
-export AM_UPDATE_L_PROMPT=1
-export AM_THEME=mono_bright
-
 source $HOME/.zsh_plugins.sh
 
 setopt MENU_COMPLETE
@@ -13,7 +8,7 @@ export PATH=$HOME/.cargo/bin/:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/anaconda3/bin:$PATH
 export PATH=$HOME/google-cloud-sdk/bin:$PATH
-export PATH=/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH
+export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 export GOPATH=$HOME/go
@@ -37,6 +32,3 @@ alias ytdl=youtube-dl
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/haze/src/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/completion.zsh.inc'; fi

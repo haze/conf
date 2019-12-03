@@ -38,3 +38,4 @@ yabai -m rule --add app="^Messages$" manage=off
 yabai -m rule --add app="^Music$" manage=off
 yabai -m rule --add app="^Handbrake$" manage=off
 yabai -m rule --add app="^Paw$" manage=off
+yabai -m rule --add app="^Activity Monitor$" manage=off
