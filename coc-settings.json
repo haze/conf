@@ -1,0 +1,30 @@
+{
+  "languageserver": {
+    "zig": {
+      "enable": true,
+      "command": "/Users/haze/src/ziglsp/zig-cache/bin/ziglsp",
+      "filetypes": ["zig"],
+      "initializationOptions": {
+      },
+      "settings": {
+      }
+    },
+    "ocaml": {
+     "command": "ocaml-language-server",
+     "args": ["--stdio"],
+     "filetypes": ["ocaml", "reason"]
+   }
+  },
+  "suggest.noselect": false,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.timeout": 500,
+  "diagnostic.errorSign": "✖",
+  "diagnostic.warningSign": "?",
+  "diagnostic.infoSign": "⚑",
+  "diagnostic.hintSign": "⚑",
+  "svelte.plugin.typescript.diagnostics.enable": false,
+  "tsserver.formatOnType": false,
+  "coc.preferences.formatOnSaveFiletypes": ["css", "go", "ocaml", "python", "Markdown", "typescript", "json", "javascript", "svelte"],
+  "tabnine.shortcut": "ML",
+  "tabnine.priority": 0
+}
