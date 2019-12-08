@@ -1,6 +1,10 @@
 source $HOME/.zsh_plugins.sh
 
+bindkey -v
+bindkey '^R' history-search-multi-word
+
 setopt MENU_COMPLETE
+export KEYTIMEOUT=1
 
 export CXX=clang
 
@@ -20,6 +24,10 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7
 '
 
+d() {
+  mkdir -p -- "$1" && cd -P -- "$1"
+}
+
 alias cat=bat
 alias c=cargo
 alias ls='exa -F'
@@ -32,3 +40,7 @@ alias ytdl=youtube-dl
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi
+unset zle_bracketed_paste
+
+# opam configuration
+test -r /Users/haze/.opam/opam-init/init.zsh && . /Users/haze/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

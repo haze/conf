@@ -45,15 +45,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'yuezk/vim-js'
 Plug 'MaxMEllon/vim-jsx-pretty'
-" Plug 'flrnd/plastic.vim'
-Plug 'jdsimcoe/panic.vim'
+Plug 'haze/consternation.vim'
 Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
 " Rust comments:
 autocmd FileType rust setlocal commentstring=//\ %s
-" Json comments
+" JSON comments
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 filetype plugin indent on
@@ -61,7 +60,7 @@ syntax enable
 set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
-colorscheme panic
+colorscheme consternation
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
