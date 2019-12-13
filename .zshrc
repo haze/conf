@@ -44,3 +44,6 @@ unset zle_bracketed_paste
 
 # opam configuration
 test -r /Users/haze/.opam/opam-init/init.zsh && . /Users/haze/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+[ -s "/Users/haze/.jabba/jabba.sh" ] && source "/Users/haze/.jabba/jabba.sh"
+jabba use adopt-openj9@1.12.0-2

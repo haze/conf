@@ -47,6 +47,8 @@ Plug 'yuezk/vim-js'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'haze/consternation.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'mhinz/vim-signify'
+Plug 'udalov/kotlin-vim'
 
 call plug#end()
 
@@ -96,7 +98,7 @@ let g:netrw_banner = 0
 let g:rustfmt_autosave = 1
 " let g:rustfmt_command = "cargo fmt -- "
 
-set updatetime=300
+set updatetime=50
 set cmdheight=2
 set hidden
 set signcolumn=yes
@@ -232,3 +234,4 @@ function! SynStack()
 endfunc
 
 let g:pear_tree_repeatable_expand = 0
+au BufReadPost *.svx set syntax=markdown

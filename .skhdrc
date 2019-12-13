@@ -140,7 +140,7 @@ shift + alt - f : yabai -m window --toggle native-fullscreen
 # shift + alt - b : yabai -m window --toggle border
 
 # toggle window split type
-alt - e : yabai -m window --toggle split
+# alt - e : yabai -m window --toggle split
 
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float;\
@@ -151,7 +151,7 @@ shift + alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 7:7:1:1:5:5
 
 # large ydim bias float / unfloat window and center on screen
-shift + alt - r : yabai -m window --toggle float;\
+alt - e : yabai -m window --toggle float;\
           yabai -m window --grid 9:7:1:1:5:7
 
 # toggle sticky (show on all spaces)
