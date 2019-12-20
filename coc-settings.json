@@ -1,5 +1,13 @@
 {
   "languageserver": {
+    "lisp": {
+      "command": "cl-lsp",
+      "filetypes": [
+        "lisp"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    },
     "zig": {
       "enable": true,
       "command": "/Users/haze/src/ziglsp/zig-cache/bin/ziglsp",
@@ -21,6 +29,7 @@
     },
     "kotlin": {
       "command": "/Users/haze/std/kotlin-language-server/server/build/install/server/bin/kotlin-language-server",
+      "trace.server": "verbose",
       "filetypes": [
         "kotlin",
         "kt"
@@ -36,7 +45,10 @@
   "diagnostic.hintSign": "⚑",
   "svelte.plugin.typescript.diagnostics.enable": false,
   "tsserver.formatOnType": false,
+  "java.format.onType.enabled": false,
+  "rust-analyzer.enableCargoWatchOnStartup": "enabled",
   "coc.preferences.formatOnSaveFiletypes": [
+    "java",
     "css",
     "go",
     "ocaml",
@@ -46,8 +58,13 @@
     "json",
     "javascript",
     "svelte",
+    "rust",
+    "sql",
     "jsonc"
   ],
   "tabnine.shortcut": "ML",
-  "tabnine.priority": 0
+  "tabnine.priority": 0,
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "java.format.onType.enabled": false,
+  "go.trace.server": "verbose"
 }

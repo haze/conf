@@ -31,7 +31,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
@@ -45,10 +45,17 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'yuezk/vim-js'
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'haze/consternation.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mhinz/vim-signify'
 Plug 'udalov/kotlin-vim'
+Plug 'miyakogi/conoline.vim'
+Plug 'tpope/vim-surround'
+Plug 'cespare/vim-toml'
+Plug 'rust-lang/rust.vim'
+Plug 'levelone/tequila-sunrise.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'kovisoft/paredit'
+Plug 'l04m33/vlime', {'rtp': 'vim/'}
 
 call plug#end()
 
@@ -62,7 +69,7 @@ syntax enable
 set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
-colorscheme consternation
+colorscheme tequila-sunrise
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -144,10 +151,10 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" Send x's to blackhole reg
+" Send x's from z to blackhole reg
 
-" nnoremap x "_x
-" vnoremap x "_x
+nnoremap z "_x
+vnoremap z "_x
 
 nnoremap c "_c
 vnoremap c "_c
@@ -235,3 +242,4 @@ endfunc
 
 let g:pear_tree_repeatable_expand = 0
 au BufReadPost *.svx set syntax=markdown
+let g:conoline_auto_enable = 1

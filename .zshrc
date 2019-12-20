@@ -14,6 +14,7 @@ export PATH=$HOME/anaconda3/bin:$PATH
 export PATH=$HOME/google-cloud-sdk/bin:$PATH
 export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+export PATH=$HOME/.roswell/bin:$PATH
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -37,6 +38,7 @@ alias vim=nvim
 alias g=git
 alias gs='git status'
 alias ytdl=youtube-dl
+alias lisp='rlwrap sbcl'
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi
@@ -46,4 +48,4 @@ unset zle_bracketed_paste
 test -r /Users/haze/.opam/opam-init/init.zsh && . /Users/haze/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 [ -s "/Users/haze/.jabba/jabba.sh" ] && source "/Users/haze/.jabba/jabba.sh"
-jabba use adopt-openj9@1.12.0-2
+# jabba use adopt-openj9@1.12.0-2
