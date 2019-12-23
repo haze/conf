@@ -45,7 +45,6 @@
   "diagnostic.hintSign": "⚑",
   "svelte.plugin.typescript.diagnostics.enable": false,
   "tsserver.formatOnType": false,
-  "java.format.onType.enabled": false,
   "rust-analyzer.enableCargoWatchOnStartup": "enabled",
   "coc.preferences.formatOnSaveFiletypes": [
     "java",
@@ -64,7 +63,9 @@
   ],
   "tabnine.shortcut": "ML",
   "tabnine.priority": 0,
+  "tabnine.disable_filetypes": [
+    "java",
+  ],
   "java.errors.incompleteClasspath.severity": "ignore",
   "java.format.onType.enabled": false,
-  "go.trace.server": "verbose"
 }

@@ -52,7 +52,7 @@ Plug 'miyakogi/conoline.vim'
 Plug 'tpope/vim-surround'
 Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
-Plug 'levelone/tequila-sunrise.vim'
+Plug 'danilo-augusto/vim-afterglow'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'kovisoft/paredit'
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
@@ -69,7 +69,7 @@ syntax enable
 set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
-colorscheme tequila-sunrise
+colorscheme afterglow
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
