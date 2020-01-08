@@ -39,6 +39,7 @@ alias g=git
 alias gs='git status'
 alias ytdl=youtube-dl
 alias lisp='rlwrap sbcl'
+alias iina='/Applications/IINA.app/Contents/MacOS/iina-cli'
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi

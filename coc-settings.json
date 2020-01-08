@@ -39,13 +39,15 @@
   "suggest.noselect": false,
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "suggest.timeout": 500,
-  "diagnostic.errorSign": "✖",
-  "diagnostic.warningSign": "?",
-  "diagnostic.infoSign": "⚑",
-  "diagnostic.hintSign": "⚑",
-  "svelte.plugin.typescript.diagnostics.enable": false,
+  "diagnostic.errorSign": "ER",
+  "diagnostic.warningSign": "WN",
+  "diagnostic.infoSign": "IN",
+  "diagnostic.hintSign": ":)",
   "tsserver.formatOnType": false,
   "rust-analyzer.enableCargoWatchOnStartup": "enabled",
+  "java.format.comments.enabled": true,
+  "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+  "java.completion.overwrite": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "java",
     "css",
@@ -64,8 +66,8 @@
   "tabnine.shortcut": "ML",
   "tabnine.priority": 0,
   "tabnine.disable_filetypes": [
-    "java",
+    "java"
   ],
   "java.errors.incompleteClasspath.severity": "ignore",
-  "java.format.onType.enabled": false,
+  "java.format.onType.enabled": false
 }

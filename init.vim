@@ -12,6 +12,8 @@ set termguicolors
 set clipboard=unnamed
 set laststatus=0
 
+" @TODO test
+
 "Searching 
 nnoremap / /\v
 vnoremap / /\v
@@ -39,22 +41,22 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'evanleck/vim-svelte'
-Plug 'hazebooth/vimdiscord'
+" Plug 'hazebooth/vimdiscord'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'yuezk/vim-js'
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
 Plug 'mhinz/vim-signify'
 Plug 'udalov/kotlin-vim'
 Plug 'miyakogi/conoline.vim'
 Plug 'tpope/vim-surround'
 Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
-Plug 'danilo-augusto/vim-afterglow'
 Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'kovisoft/paredit'
+Plug 'tpope/vim-abolish'
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
 
 call plug#end()
@@ -69,7 +71,24 @@ syntax enable
 set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
-colorscheme afterglow
+
+function! s:base16_customize() abort
+  call Base16hi("javaAnnotation", "5b89e5", "", g:base16_cterm0A, "", "bold", "")
+  call Base16hi("Normal", g:base16_gui05, "131313", g:base16_cterm05, g:base16_cterm00, "", "")
+  call Base16hi("MatchParen", "", "4B4B4B", g:base16_cterm05, "", "", "")
+  call Base16hi("PMenuSel", "D6D6D6", "5A5A5A", g:base16_cterm01, g:base16_cterm05, "", "")
+  " call Base16hi("javaStorageClass", "66ffcc", "", g:base16_cterm0A, "", "bold", "")
+  " call Base16hi("javaAnnotation", "", "", "", "", "bold,italic", "")
+  " hi javaAnnotation ctermfg=NONE ctermbg=NONE cterm=NONE guifg=#e5b75b guibg=NONE gui=NONE
+endfunction
+
+augroup on_change_colorschema
+  autocmd!
+  autocmd ColorScheme * call s:base16_customize()
+augroup END
+
+colorscheme base16-tomorrow-night-eighties
+
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -106,6 +125,8 @@ let g:rustfmt_autosave = 1
 " let g:rustfmt_command = "cargo fmt -- "
 
 set updatetime=50
+set nobackup
+set nowritebackup
 set cmdheight=2
 set hidden
 set signcolumn=yes
@@ -150,6 +171,29 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use Q to show documentation in preview window
+nnoremap <silent> Q :call <SID>show_documentation()<CR>
+
+nmap <silent> rn <Plug>(coc-rename)
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " Send x's from z to blackhole reg
 
@@ -219,14 +263,6 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
-
-" " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-" command! -bang -nargs=* Rg
-"       \ call fzf#vim#grep(
-"       \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-"       \   <bang>0 ? fzf#vim#with_preview('up:60%')
-"       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"       \   <bang>0)
 
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
