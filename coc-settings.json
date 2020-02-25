@@ -9,13 +9,25 @@
       "settings": {}
     },
     "zig": {
-      "enable": true,
-      "command": "/Users/haze/src/ziglsp/zig-cache/bin/ziglsp",
+      "module": "/Users/haze/src/zig-language-server/server/out/server.js",
+      "args": [
+        "--node-ipc"
+      ],
       "filetypes": [
         "zig"
       ],
+      "trace.server": "verbose",
+      "rootPatterns": [
+        "src/"
+      ],
+      "execArgv": [
+        "--nolazy",
+        "--inspect-brk=6045"
+      ],
       "initializationOptions": {},
-      "settings": {}
+      "settings": {
+        "validate": true
+      }
     },
     "ocaml": {
       "command": "ocaml-language-server",
@@ -43,8 +55,7 @@
   "diagnostic.warningSign": "WN",
   "diagnostic.infoSign": "IN",
   "diagnostic.hintSign": ":)",
-  "tsserver.formatOnType": false,
-  "rust-analyzer.enableCargoWatchOnStartup": "enabled",
+  "rust-analyzer.trace.server": "verbose",
   "java.format.comments.enabled": true,
   "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
   "java.completion.overwrite": true,

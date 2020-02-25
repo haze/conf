@@ -33,7 +33,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
-" Plug 'rust-lang/rust.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
@@ -41,7 +40,6 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'evanleck/vim-svelte'
-" Plug 'hazebooth/vimdiscord'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/vim-cursorword'
@@ -54,10 +52,14 @@ Plug 'tpope/vim-surround'
 Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'chriskempson/base16-vim'
 Plug 'kovisoft/paredit'
 Plug 'tpope/vim-abolish'
+Plug 'APZelos/blamer.nvim'
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
+Plug 'arzg/vim-rust-syntax-ext'
+Plug 'arzg/vim-colors-xcode'
+Plug 'PeterRincker/vim-searchlight'
+Plug 'mhinz/vim-startify'
 
 call plug#end()
 
@@ -72,22 +74,7 @@ set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 
-function! s:base16_customize() abort
-  call Base16hi("javaAnnotation", "5b89e5", "", g:base16_cterm0A, "", "bold", "")
-  call Base16hi("Normal", g:base16_gui05, "131313", g:base16_cterm05, g:base16_cterm00, "", "")
-  call Base16hi("MatchParen", "", "4B4B4B", g:base16_cterm05, "", "", "")
-  call Base16hi("PMenuSel", "D6D6D6", "5A5A5A", g:base16_cterm01, g:base16_cterm05, "", "")
-  " call Base16hi("javaStorageClass", "66ffcc", "", g:base16_cterm0A, "", "bold", "")
-  " call Base16hi("javaAnnotation", "", "", "", "", "bold,italic", "")
-  " hi javaAnnotation ctermfg=NONE ctermbg=NONE cterm=NONE guifg=#e5b75b guibg=NONE gui=NONE
-endfunction
-
-augroup on_change_colorschema
-  autocmd!
-  autocmd ColorScheme * call s:base16_customize()
-augroup END
-
-colorscheme base16-tomorrow-night-eighties
+colorscheme xcodedark
 
 
 let g:indent_guides_start_level = 2
@@ -105,6 +92,12 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :

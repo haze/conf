@@ -15,6 +15,7 @@ export PATH=$HOME/google-cloud-sdk/bin:$PATH
 export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH=$HOME/.roswell/bin:$PATH
+export PATH=$HOME/Library/Python/3.7/bin:$PATH
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -50,3 +51,19 @@ test -r /Users/haze/.opam/opam-init/init.zsh && . /Users/haze/.opam/opam-init/in
 
 [ -s "/Users/haze/.jabba/jabba.sh" ] && source "/Users/haze/.jabba/jabba.sh"
 # jabba use adopt-openj9@1.12.0-2
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
