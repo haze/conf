@@ -59,7 +59,8 @@ Plug 'l04m33/vlime', {'rtp': 'vim/'}
 Plug 'arzg/vim-rust-syntax-ext'
 Plug 'arzg/vim-colors-xcode'
 Plug 'PeterRincker/vim-searchlight'
-Plug 'mhinz/vim-startify'
+Plug 'jdsimcoe/panic.vim'
+Plug 'APZelos/blamer.nvim'
 
 call plug#end()
 
@@ -74,7 +75,7 @@ set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 
-colorscheme xcodedark
+colorscheme panic
 
 
 let g:indent_guides_start_level = 2
@@ -82,10 +83,6 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:vim_jsx_pretty_colorful_config = 1
 let g:polyglot_disabled = ['jsx']
-
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -272,3 +269,6 @@ endfunc
 let g:pear_tree_repeatable_expand = 0
 au BufReadPost *.svx set syntax=markdown
 let g:conoline_auto_enable = 1
+
+let g:blamer_enabled = 1
+let g:blamer_delay = 500

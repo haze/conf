@@ -158,7 +158,7 @@ alt - e : yabai -m window --toggle float;\
 alt - s : yabai -m window --toggle sticky
 
 # toggle topmost (keep above other windows)
-alt - o : yabai -m window --toggle topmost
+# alt - o : yabai -m window --toggle topmost
 
 # toggle sticky, topmost and resize to picture-in-picture size
 alt - p : yabai -m window --toggle sticky;\
