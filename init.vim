@@ -12,8 +12,6 @@ set termguicolors
 set clipboard=unnamed
 set laststatus=0
 
-" @TODO test
-
 "Searching 
 nnoremap / /\v
 vnoremap / /\v
@@ -61,6 +59,9 @@ Plug 'arzg/vim-colors-xcode'
 Plug 'PeterRincker/vim-searchlight'
 Plug 'jdsimcoe/panic.vim'
 Plug 'APZelos/blamer.nvim'
+Plug 'ap/vim-buftabline'
+Plug 'farmergreg/vim-lastplace'
+Plug 'justinmk/vim-sneak'
 
 call plug#end()
 
@@ -76,7 +77,6 @@ let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 
 colorscheme panic
-
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -271,4 +271,4 @@ au BufReadPost *.svx set syntax=markdown
 let g:conoline_auto_enable = 1
 
 let g:blamer_enabled = 1
-let g:blamer_delay = 500
+let g:blamer_delay = 1500

@@ -8,6 +8,12 @@
       "initializationOptions": {},
       "settings": {}
     },
+    "nim": {
+      "command": "nimlsp",
+      "filetypes": [
+        "nim"
+      ]
+    },
     "zig": {
       "module": "/Users/haze/src/zig-language-server/server/out/server.js",
       "args": [
