@@ -52,13 +52,12 @@ Plug 'rust-lang/rust.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'kovisoft/paredit'
 Plug 'tpope/vim-abolish'
-Plug 'APZelos/blamer.nvim'
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
 Plug 'arzg/vim-rust-syntax-ext'
 Plug 'arzg/vim-colors-xcode'
 Plug 'PeterRincker/vim-searchlight'
-Plug 'jdsimcoe/panic.vim'
 Plug 'APZelos/blamer.nvim'
+Plug 'haze/anis.vim'
 Plug 'ap/vim-buftabline'
 Plug 'farmergreg/vim-lastplace'
 Plug 'justinmk/vim-sneak'
@@ -76,7 +75,7 @@ set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 
-colorscheme panic
+colorscheme anis
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -270,5 +269,5 @@ let g:pear_tree_repeatable_expand = 0
 au BufReadPost *.svx set syntax=markdown
 let g:conoline_auto_enable = 1
 
-let g:blamer_enabled = 1
 let g:blamer_delay = 1500
+let g:sneak#label = 1

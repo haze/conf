@@ -1,5 +1,3 @@
-source $HOME/.zsh_plugins.sh
-
 bindkey -v
 bindkey '^R' history-search-multi-word
 
@@ -10,14 +8,12 @@ export CXX=clang
 
 export PATH=$HOME/.cargo/bin/:$PATH
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/anaconda3/bin:$PATH
 export PATH=$HOME/google-cloud-sdk/bin:$PATH
-export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH=$HOME/.roswell/bin:$PATH
 export PATH=$HOME/Library/Python/3.7/bin:$PATH
-export PATH=$HOME/zig:$PATH
-export RUSTC_WRAPPER=sccache
+export PATH=$HOME/zig/build/bin:$PATH
+export RUSTC_WRAPPER=sccache cargo build
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -44,28 +40,45 @@ alias ytdl=youtube-dl
 alias lisp='rlwrap sbcl'
 alias iina='/Applications/IINA.app/Contents/MacOS/iina-cli'
 
+alias viconf='nvim $HOME/conf/init.vim'
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi
 unset zle_bracketed_paste
 
-# opam configuration
-test -r /Users/haze/.opam/opam-init/init.zsh && . /Users/haze/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 [ -s "/Users/haze/.jabba/jabba.sh" ] && source "/Users/haze/.jabba/jabba.sh"
 # jabba use adopt-openj9@1.12.0-2
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-bin-gem-node \
+    hlissner/zsh-autopair \
+    zsh-users/zsh-autosuggestions \
+    MikeDacre/careful_rm \
+    zdharma/history-search-multi-word \
+    haze/bruh \
+    zdharma/fast-syntax-highlighting \
+
+### End of Zinit's installer chunk
+
+
+# Nix
+source $HOME/.nix-profile/etc/profile.d/nix.sh

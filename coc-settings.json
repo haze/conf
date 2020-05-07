@@ -8,6 +8,27 @@
       "initializationOptions": {},
       "settings": {}
     },
+    "haskell": {
+      "command": "hie-wrapper",
+      "args": [
+        "--lsp"
+      ],
+      "rootPatterns": [
+        "stack.yaml",
+        "cabal.config",
+        "package.yaml"
+      ],
+      "filetypes": [
+        "hs",
+        "lhs",
+        "haskell"
+      ],
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true
+        }
+      }
+    },
     "nim": {
       "command": "nimlsp",
       "filetypes": [
@@ -80,11 +101,7 @@
     "sql",
     "jsonc"
   ],
-  "tabnine.shortcut": "ML",
-  "tabnine.priority": 0,
-  "tabnine.disable_filetypes": [
-    "java"
-  ],
+  "rust-analyzer.inlayHints.chainingHints": false,
   "java.errors.incompleteClasspath.severity": "ignore",
   "java.format.onType.enabled": false
 }
