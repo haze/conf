@@ -61,6 +61,7 @@ Plug 'haze/anis.vim'
 Plug 'ap/vim-buftabline'
 Plug 'farmergreg/vim-lastplace'
 Plug 'justinmk/vim-sneak'
+Plug 'darfink/vim-plist'
 
 call plug#end()
 
