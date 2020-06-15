@@ -29,32 +29,17 @@
         }
       }
     },
+    "zig": {
+      "command": "/Users/haze/src/zls/zig-cache/bin/zls",
+      "filetypes": [
+        "zig"
+      ]
+    },
     "nim": {
       "command": "nimlsp",
       "filetypes": [
         "nim"
       ]
-    },
-    "zig": {
-      "module": "/Users/haze/src/zig-language-server/server/out/server.js",
-      "args": [
-        "--node-ipc"
-      ],
-      "filetypes": [
-        "zig"
-      ],
-      "trace.server": "verbose",
-      "rootPatterns": [
-        "src/"
-      ],
-      "execArgv": [
-        "--nolazy",
-        "--inspect-brk=6045"
-      ],
-      "initializationOptions": {},
-      "settings": {
-        "validate": true
-      }
     },
     "ocaml": {
       "command": "ocaml-language-server",
@@ -101,6 +86,7 @@
     "sql",
     "jsonc"
   ],
+  "html.format.enable": true,
   "rust-analyzer.inlayHints.chainingHints": false,
   "java.errors.incompleteClasspath.severity": "ignore",
   "java.format.onType.enabled": false

@@ -34,11 +34,10 @@ Plug 'tpope/vim-sleuth'
 Plug 'itchyny/lightline.vim'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'evanleck/vim-svelte'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'yuezk/vim-js'
@@ -57,11 +56,12 @@ Plug 'arzg/vim-rust-syntax-ext'
 Plug 'arzg/vim-colors-xcode'
 Plug 'PeterRincker/vim-searchlight'
 Plug 'APZelos/blamer.nvim'
-Plug 'haze/anis.vim'
-Plug 'ap/vim-buftabline'
+Plug 'haze/ambrosia.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'justinmk/vim-sneak'
 Plug 'darfink/vim-plist'
+Plug 'darfink/vim-plist'
+Plug 'lifepillar/vim-colortemplate'
 
 call plug#end()
 
@@ -76,7 +76,7 @@ set background=dark
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 
-colorscheme anis
+colorscheme ambrosia
 
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -112,7 +112,6 @@ command! W  write
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
 let g:rustfmt_autosave = 1
-" let g:rustfmt_command = "cargo fmt -- "
 
 set updatetime=50
 set nobackup
@@ -272,3 +271,5 @@ let g:conoline_auto_enable = 1
 
 let g:blamer_delay = 1500
 let g:sneak#label = 1
+
+let g:ambrosia_emph_idents = 1
