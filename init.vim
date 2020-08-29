@@ -1,4 +1,3 @@
-
 if &compatible
   set nocompatible               " Be iMproved
 endif
@@ -12,78 +11,46 @@ set termguicolors
 set clipboard=unnamed
 set laststatus=0
 
-"Searching 
-nnoremap / /\v
-vnoremap / /\v
+" Searching 
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 set showmatch
-map <leader><space> :let @/=''<cr> " clear search
-
-
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 call plug#begin('~/.vim/plugged')
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
-Plug 'itchyny/lightline.vim'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
-Plug 'evanleck/vim-svelte'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'yuezk/vim-js'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'mhinz/vim-signify'
-Plug 'udalov/kotlin-vim'
 Plug 'miyakogi/conoline.vim'
-Plug 'tpope/vim-surround'
 Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'kovisoft/paredit'
 Plug 'tpope/vim-abolish'
-Plug 'l04m33/vlime', {'rtp': 'vim/'}
 Plug 'arzg/vim-rust-syntax-ext'
-Plug 'arzg/vim-colors-xcode'
 Plug 'PeterRincker/vim-searchlight'
 Plug 'APZelos/blamer.nvim'
-Plug 'haze/ambrosia.vim'
+Plug 'haze/sitruuna.vim'
 Plug 'farmergreg/vim-lastplace'
-Plug 'justinmk/vim-sneak'
 Plug 'darfink/vim-plist'
-Plug 'darfink/vim-plist'
-Plug 'lifepillar/vim-colortemplate'
-
 call plug#end()
 
-" Rust comments:
-autocmd FileType rust setlocal commentstring=//\ %s
-" JSON comments
-autocmd FileType json syntax match Comment +\/\/.\+$+
-
+colorscheme sitruuna
 filetype plugin indent on
 syntax enable
 set background=dark
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setColors = 0
 
-colorscheme ambrosia
+" Rust comments:
+autocmd FileType rust setlocal commentstring=//\ %s
 
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-let g:vim_jsx_pretty_colorful_config = 1
-let g:polyglot_disabled = ['jsx']
-
+" CoC stuff
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -93,6 +60,7 @@ endfunction
 function! s:cocActionsOpenFromSelected(type) abort
   execute 'CocCommand actions.open ' . a:type
 endfunction
+
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
@@ -105,9 +73,6 @@ inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 set autoread
-command! W  write
-" command! Wq  write
-" command! WQ  write
 
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
@@ -130,19 +95,6 @@ function! CocCurrentFunction()
   return get(b:, 'coc_current_function', '')
 endfunction
 
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'currentfunction', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction',
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
 nnoremap <S-j> :m .+1<CR>==
 nnoremap <S-k> :m .-2<CR>==
 " inoremap <S-j> <Esc>:m .+1<CR>==gi
@@ -155,7 +107,6 @@ nnoremap <silent> <S-F> :Files<CR>
 nnoremap <silent> <S-Tab> :Rg<CR>
 
 " Show/Hide 
-
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
@@ -185,7 +136,6 @@ function! s:show_documentation()
 endfunction
 
 " Send x's from z to blackhole reg
-
 nnoremap z "_x
 vnoremap z "_x
 
@@ -266,10 +216,6 @@ function! SynStack()
 endfunc
 
 let g:pear_tree_repeatable_expand = 0
-au BufReadPost *.svx set syntax=markdown
 let g:conoline_auto_enable = 1
 
 let g:blamer_delay = 1500
-let g:sneak#label = 1
-
-let g:ambrosia_emph_idents = 1

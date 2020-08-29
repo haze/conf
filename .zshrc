@@ -37,8 +37,6 @@ alias vim=nvim
 alias g=git
 alias gs='git status'
 alias ytdl=youtube-dl
-alias lisp='rlwrap sbcl'
-alias iina='/Applications/IINA.app/Contents/MacOS/iina-cli'
 
 alias viconf='nvim $HOME/conf/init.vim'
 
@@ -79,23 +77,5 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-
-# Nix
-source $HOME/.nix-profile/etc/profile.d/nix.sh
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/haze/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/haze/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/haze/opt/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/haze/opt/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 export PATH="/usr/local/opt/ruby/bin:$PATH"
+export GPG_TTY=$(tty)
