@@ -13,10 +13,13 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH=$HOME/.roswell/bin:$PATH
 export PATH=$HOME/Library/Python/3.7/bin:$PATH
 export PATH=$HOME/zig/build/bin:$PATH
+export PATH=$HOME/Library/Python/3.8/bin:$PATH
 export RUSTC_WRAPPER=sccache cargo build
+export EDITOR=nvim
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
+export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=dark
@@ -39,9 +42,7 @@ alias gs='git status'
 alias ytdl=youtube-dl
 
 alias viconf='nvim $HOME/conf/init.vim'
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi
+alias python='python3'
 unset zle_bracketed_paste
 
 [ -s "/Users/haze/.jabba/jabba.sh" ] && source "/Users/haze/.jabba/jabba.sh"
@@ -59,6 +60,10 @@ if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
 fi
 
 source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz compinit
+compinit
+source <(kubectl completion zsh)
+
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -79,3 +84,12 @@ zinit light-mode for \
 
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export GPG_TTY=$(tty)
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig/"
+export BRUH_ALIAS_COLOR='yellow'
+export PATH="/usr/local/opt/python@3.7/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/haze/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/haze/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/haze/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

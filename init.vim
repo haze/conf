@@ -21,7 +21,6 @@ set showmatch
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-sleuth'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -40,12 +39,16 @@ Plug 'APZelos/blamer.nvim'
 Plug 'haze/sitruuna.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'darfink/vim-plist'
+Plug 'pboettch/vim-cmake-syntax'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'matze/vim-meson'
 call plug#end()
 
 colorscheme sitruuna
 filetype plugin indent on
 syntax enable
 set background=dark
+command! W  write
 
 " Rust comments:
 autocmd FileType rust setlocal commentstring=//\ %s
