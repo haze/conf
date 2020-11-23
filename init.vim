@@ -19,7 +19,9 @@ set smartcase
 set showmatch
 
 call plug#begin('~/.vim/plugged')
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-lua/completion-nvim'
+Plug 'neovim/nvim-lspconfig'
 Plug 'tpope/vim-commentary'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
@@ -64,16 +66,18 @@ function! s:cocActionsOpenFromSelected(type) abort
   execute 'CocCommand actions.open ' . a:type
 endfunction
 
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+" xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+" nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" inoremap <silent><expr> <Tab>
+"     \ pumvisible() ? "\<C-n>" :
+"     \ <SID>check_back_space() ? "\<Tab>" :
+"     \ coc#refresh()
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
+inoremap <expr> <Tab> pumvisible() ? "\<CR>" : "\<Tab>"
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 set autoread
 
@@ -88,6 +92,8 @@ set cmdheight=2
 set hidden
 set signcolumn=yes
 set shortmess+=c
+set completeopt=menuone,noinsert
+autocmd CompleteDone * pclose
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
@@ -222,3 +228,13 @@ let g:pear_tree_repeatable_expand = 0
 let g:conoline_auto_enable = 1
 
 let g:blamer_delay = 1500
+
+" LSP Stuff
+lua <<EOF
+require'lspconfig'.rust_analyzer.setup{}
+EOF
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+autocmd BufEnter * lua require'completion'.on_attach()
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
