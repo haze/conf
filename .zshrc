@@ -4,16 +4,13 @@ bindkey '^R' history-search-multi-word
 setopt MENU_COMPLETE
 export KEYTIMEOUT=1
 
-export CXX=clang
-
 export PATH=$HOME/.cargo/bin/:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/google-cloud-sdk/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 export PATH=$HOME/.roswell/bin:$PATH
 export PATH=$HOME/Library/Python/3.7/bin:$PATH
-export PATH=$HOME/zig/build/bin:$PATH
-export RUSTC_WRAPPER=sccache cargo build
+export PATH=$HOME/src/zig/build:$PATH
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -39,6 +36,8 @@ alias gs='git status'
 alias ytdl=youtube-dl
 
 alias viconf='nvim $HOME/conf/init.vim'
+alias intel='arch -x86_64'
+alias lctl='launchctl'
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi
