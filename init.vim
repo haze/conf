@@ -19,13 +19,12 @@ set smartcase
 set showmatch
 
 call plug#begin('~/.vim/plugged')
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'haze/nvim-lspconfig', {'branch': 'hb/zls'}
 Plug 'nvim-lua/completion-nvim'
-Plug 'neovim/nvim-lspconfig'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sleuth'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -38,19 +37,13 @@ Plug 'tpope/vim-abolish'
 Plug 'arzg/vim-rust-syntax-ext'
 Plug 'PeterRincker/vim-searchlight'
 Plug 'APZelos/blamer.nvim'
-Plug 'haze/sitruuna.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'darfink/vim-plist'
-Plug 'pboettch/vim-cmake-syntax'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
-Plug 'matze/vim-meson'
+Plug 'haze/sitruuna.vim'
 call plug#end()
 
-colorscheme sitruuna
 filetype plugin indent on
 syntax enable
-set background=dark
-command! W  write
 
 " Rust comments:
 autocmd FileType rust setlocal commentstring=//\ %s
@@ -78,7 +71,6 @@ endfunction
 " autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
 inoremap <expr> <Tab> pumvisible() ? "\<CR>" : "\<Tab>"
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 set autoread
 
 let g:netrw_liststyle = 3
@@ -121,20 +113,8 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
 " Use Q to show documentation in preview window
 nnoremap <silent> Q :call <SID>show_documentation()<CR>
-
-nmap <silent> rn <Plug>(coc-rename)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -151,7 +131,10 @@ vnoremap z "_x
 nnoremap c "_c
 vnoremap c "_c
 
+nnoremap :W :w
+
 let g:fzf_layout = { 'window': 'below 15split enew' }
+
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors = {
@@ -231,10 +214,55 @@ let g:blamer_delay = 1500
 
 " LSP Stuff
 lua <<EOF
-require'lspconfig'.rust_analyzer.setup{}
+local lspconfig = require'lspconfig'
+local configs = require'lspconfig/configs'
+local completion = require'completion'
+
+local map = function(type, key, value)
+	vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
+end
+
+local custom_attach = function(client)
+    print("LSP started");
+
+    completion.on_attach(client)
+
+    map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
+    map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
+    map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
+    map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
+    map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+    map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+    map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+    map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+    map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+    map('n','rn','<cmd>lua vim.lsp.buf.rename()<CR>')
+    map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+    map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+
+    if client.resolved_capabilities.document_highlight then
+      vim.api.nvim_command('augroup lsp_aucmds')
+      vim.api.nvim_command('au CursorHold <buffer> lua vim.lsp.buf.document_highlight()')
+      vim.api.nvim_command('au CursorMoved <buffer> lua vim.lsp.buf.clear_references()')
+      vim.api.nvim_command('augroup END')
+    end
+end
+
+lspconfig.zls.setup{on_attach=custom_attach}
+lspconfig.rust_analyzer.setup{on_attach=custom_attach}
+lspconfig.clangd.setup{on_attach=custom_attach}
+lspconfig.jsonls.setup{on_attach=custom_attach}
+lspconfig.html.setup{on_attach=custom_attach}
+
 EOF
 
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 autocmd BufEnter * lua require'completion'.on_attach()
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
+set background=dark
+colorscheme sitruuna
+
+let g:cursorword_delay = 400
 

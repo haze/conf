@@ -19,10 +19,13 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+
 --color=dark
 --color=fg:-1,bg:-1,hl:#5fff87,fg+:-1,bg+:-1,hl+:#ffaf5f
 --color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7
 '
+export LS_COLORS="$(vivid generate molokai)"
+
 
 d() {
   mkdir -p -- "$1" && cd -P -- "$1"
@@ -44,7 +47,6 @@ alias lctl='launchctl'
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi
->>>>>>> 93edc2d9697ce39d624aabd4f7d25c941613c986
 unset zle_bracketed_paste
 
 [ -s "/Users/haze/.jabba/jabba.sh" ] && source "/Users/haze/.jabba/jabba.sh"
