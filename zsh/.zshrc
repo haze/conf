@@ -25,13 +25,14 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7
 '
 export LS_COLORS="$(vivid generate molokai)"
+export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels:$NIX_PATH
 
 
 d() {
   mkdir -p -- "$1" && cd -P -- "$1"
 }
 
-alias cat=bat
+alias cat=bat -p
 alias c=cargo
 alias ls='exa -F'
 alias lsa='exa -Fa'
@@ -41,7 +42,8 @@ alias g=git
 alias gs='git status'
 alias ytdl=youtube-dl
 
-alias viconf='nvim $HOME/conf/init.vim'
+alias viconf='nvim $HOME/.config/nvim/init.vim'
+alias vinix='nvim $HOME/.nixpkgs/darwin-configuration.nix'
 alias intel='arch -x86_64'
 alias lctl='launchctl'
 

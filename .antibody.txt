@@ -1,9 +1,0 @@
-haze/bruh
-zsh-users/zsh-syntax-highlighting
-littleq0903/gcloud-zsh-completion
-hlissner/zsh-autopair
-nviennot/zsh-vim-plugin
-gko/ssh-connect
-zsh-users/zsh-autosuggestions
-MikeDacre/careful_rm
-zdharma/history-search-multi-word
