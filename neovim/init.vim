@@ -1,5 +1,4 @@
 if &compatible
-  :Colors
   set nocompatible               " Be iMproved
 endif
 
