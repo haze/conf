@@ -1,4 +1,5 @@
 if &compatible
+  :Colors
   set nocompatible               " Be iMproved
 endif
 
@@ -19,13 +20,18 @@ set smartcase
 set showmatch
 
 call plug#begin('~/.vim/plugged')
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'haze/nvim-lspconfig', {'branch': 'hb/zls'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'justinmk/vim-syntax-extra'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'sainnhe/sonokai'
+Plug 'sainnhe/edge'
 Plug 'nvim-lua/completion-nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
+Plug 'LnL7/vim-nix'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -226,17 +232,79 @@ let g:conoline_auto_enable = 1
 
 let g:blamer_delay = 1500
 
+let mapleader = ','
+
 " LSP Stuff
 lua <<EOF
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig/configs'
 local completion = require'completion'
 
-lspconfig.zls.setup{on_attach=completion.on_attach}
-lspconfig.rust_analyzer.setup{on_attach=completion.on_attach}
+local map = function(type, key, value)
+	vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
+end
+
+local custom_attach = function(client)
+    print("LSP started");
+
+    completion.on_attach(client)
+
+    map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
+    map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
+    map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
+    map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
+    map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+    map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+    map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+    map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+    map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+    map('n','rn','<cmd>lua vim.lsp.buf.rename()<CR>')
+    map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+    map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+    map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+
+
+    if client.resolved_capabilities.document_highlight then
+      vim.api.nvim_command('augroup lsp_aucmds')
+      vim.api.nvim_command('au CursorHold <buffer> lua vim.lsp.buf.document_highlight()')
+      vim.api.nvim_command('au CursorMoved <buffer> lua vim.lsp.buf.clear_references()')
+      vim.api.nvim_command('augroup END')
+    end
+end
+
+lspconfig.zls.setup{on_attach=custom_attach}
+lspconfig.rust_analyzer.setup{on_attach=custom_attach}
+lspconfig.clangd.setup{
+  on_attach=custom_attach,
+  cmd = {'clangd'},
+}
+lspconfig.jsonls.setup{on_attach=custom_attach}
+lspconfig.html.setup{on_attach=custom_attach}
+lspconfig.cssls.setup{on_attach=custom_attach}
+lspconfig.rnix.setup{on_attach=custom_attach}
+
+require'nvim-treesitter.configs'.setup {
+  indent = {
+    enable = true
+  },
+  highlight = {
+    enable = true
+  }
+}
+
 EOF
 
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 autocmd BufEnter * lua require'completion'.on_attach()
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.c lua vim.lsp.buf.formatting_sync(nil, 1000)
 
+set background=dark
+" colorscheme sitruuna-blue
+colorscheme moonfly
+
+let g:cursorword_delay = 100

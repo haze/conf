@@ -27,12 +27,11 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 export LS_COLORS="$(vivid generate molokai)"
 export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels:$NIX_PATH
 
-
 d() {
   mkdir -p -- "$1" && cd -P -- "$1"
 }
 
-alias cat=bat -p
+alias cat='bat -p'
 alias c=cargo
 alias ls='exa -F'
 alias lsa='exa -Fa'
@@ -44,17 +43,11 @@ alias ytdl=youtube-dl
 
 alias viconf='nvim $HOME/.config/nvim/init.vim'
 alias vinix='nvim $HOME/.nixpkgs/darwin-configuration.nix'
+alias vizsh='nvim $HOME/.zshrc'
 alias intel='arch -x86_64'
 alias lctl='launchctl'
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/haze/src/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/src/google-cloud-sdk/path.zsh.inc'; fi
 unset zle_bracketed_paste
-
-[ -s "/Users/haze/.jabba/jabba.sh" ] && source "/Users/haze/.jabba/jabba.sh"
-# jabba use adopt-openj9@1.12.0-2
-
-[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -67,35 +60,42 @@ fi
 
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz compinit
-compinit
-source <(kubectl completion zsh)
+
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+
+compinit -C
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+function kube() {
+  if [ $commands[kubectl] ]; then
+      source <(kubectl completion zsh)
+  fi
+}
+
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
-zinit light-mode for \
+zinit load haze/bruh 
+zinit wait lucid light-mode for \
     zinit-zsh/z-a-patch-dl \
     zinit-zsh/z-a-as-monitor \
     zinit-zsh/z-a-bin-gem-node \
     hlissner/zsh-autopair \
+    Aloxaf/fzf-tab \
     zsh-users/zsh-autosuggestions \
-    MikeDacre/careful_rm \
+    mattmc3/zsh-safe-rm \
     zdharma/history-search-multi-word \
-    haze/bruh \
     zdharma/fast-syntax-highlighting \
 
 ### End of Zinit's installer chunk
 
-export PATH="/usr/local/opt/ruby/bin:$PATH"
 export GPG_TTY=$(tty)
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig/"
 export BRUH_ALIAS_COLOR='yellow'
-export PATH="/usr/local/opt/python@3.7/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/haze/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/haze/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/haze/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/haze/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+eval "$(direnv hook zsh)"
