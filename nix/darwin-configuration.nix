@@ -28,28 +28,42 @@
       vivid
       youtube-dl
       kubectl
-      rustup
-      cargo-edit
-      ffmpeg
-      cmake
-      python39
-      fzf
-      python39Packages.pip
+      #rustup
+      #cargo-edit
+      #ffmpeg
+      #cmake
+      #python39
+      #fzf
+      #python39Packages.pip
+      icu
       hyperfine
       rnix-lsp
       nix-index
-      adoptopenjdk-bin
+      # adoptopenjdk-bin
       gnupg
       pinentry_mac
       tldr
-      nodejs-14_x
-      nodePackages.vscode-css-languageserver-bin
-      nodePackages.vscode-html-languageserver-bin
-      nodePackages.vscode-json-languageserver-bin
+      bat
+      wget
+      lzma
+      # nodejs-12_x
+      # nodePackages.vscode-css-languageserver-bin
+      # nodePackages.vscode-html-languageserver-bin
+      # nodePackages.vscode-json-languageserver-bin
+      # nodePackages.nodemon
+      google-cloud-sdk
       curlFull.dev
       htop
       neofetch
       direnv
+      #pkg-config
+      awscli
+      jq
+      ssm-session-manager-plugin
+      yarn
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gstreamer
     ];
 
   # Use a custom configuration.nix location.
@@ -71,5 +85,6 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
-
+  nixpkgs.config.allowUnfree = true;
+  environment.variables.NODE_PATH="${pkgs.nodePackages.webpack.out}/lib/node_modules";
 }

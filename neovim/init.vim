@@ -11,21 +11,35 @@ set termguicolors
 set clipboard=unnamed
 set laststatus=0
 
+set updatetime=50
+set nobackup
+set nowritebackup
+set cmdheight=2
+set hidden
+set signcolumn=yes
+set shortmess+=c
+set completeopt=menuone,noselect
+
 " Searching 
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 set showmatch
+set icm=nosplit
 
 call plug#begin('~/.vim/plugged')
+Plug 'arzg/vim-swift'
 Plug 'neovim/nvim-lspconfig'
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'dominikduda/vim_current_word'
+Plug 'junegunn/seoul256.vim'
 Plug 'sainnhe/sonokai'
 Plug 'sainnhe/edge'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 Plug 'tmsvg/pear-tree'
@@ -35,7 +49,6 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'itchyny/vim-cursorword'
 Plug 'yuezk/vim-js'
 Plug 'miyakogi/conoline.vim'
 Plug 'cespare/vim-toml'
@@ -49,7 +62,6 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'darfink/vim-plist'
 call plug#end()
 
-colorscheme sitruuna
 filetype plugin indent on
 syntax enable
 set background=dark
@@ -57,44 +69,13 @@ set background=dark
 " Rust comments:
 autocmd FileType rust setlocal commentstring=//\ %s
 
-" CoC stuff
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+map <C-j> :cn<CR>
+map <C-k> :cp<CR>
 
-function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
-endfunction
-
-" xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-" nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
-
-" inoremap <silent><expr> <Tab>
-"     \ pumvisible() ? "\<C-n>" :
-"     \ <SID>check_back_space() ? "\<Tab>" :
-"     \ coc#refresh()
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-" inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
-" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-" inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
-inoremap <expr> <Tab> pumvisible() ? "\<CR>" : "\<Tab>"
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 set autoread
 
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
-let g:rustfmt_autosave = 1
-
-set updatetime=50
-set nobackup
-set nowritebackup
-set cmdheight=2
-set hidden
-set signcolumn=yes
-set shortmess+=c
-set completeopt=menuone,noinsert
 autocmd CompleteDone * pclose
 
 autocmd StdinReadPre * let s:std_in=1
@@ -237,16 +218,15 @@ let mapleader = ','
 lua <<EOF
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig/configs'
-local completion = require'completion'
 
 local map = function(type, key, value)
-	vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
+  vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
 end
+
+require'lsp_signature'.on_attach()
 
 local custom_attach = function(client)
     print("LSP started");
-
-    completion.on_attach(client)
 
     map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
     map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -263,7 +243,6 @@ local custom_attach = function(client)
     map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
     map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
     map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-
 
     if client.resolved_capabilities.document_highlight then
       vim.api.nvim_command('augroup lsp_aucmds')
@@ -295,15 +274,45 @@ require'nvim-treesitter.configs'.setup {
 
 EOF
 
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-autocmd BufEnter * lua require'completion'.on_attach()
-autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
 autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
 autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000)
 autocmd BufWritePre *.c lua vim.lsp.buf.formatting_sync(nil, 1000)
 
 set background=dark
-" colorscheme sitruuna-blue
-colorscheme moonfly
+let g:seoul256_background = 233
+colorscheme seoul256
 
-let g:cursorword_delay = 100
+highlight! link LspDiagnosticsSignError Exception
+highlight! link LspDiagnosticsSignWarning WarningMsg
+hi CurrentWord guifg=NONE guibg=#303030 gui=underline
+
+" nvim-compe
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'always'
+let g:compe.throttle_time = 80
+let g:compe.source_timeout = 200
+let g:compe.incomplete_delay = 400
+let g:compe.max_abbr_width = 100
+let g:compe.max_kind_width = 100
+let g:compe.max_menu_width = 100
+let g:compe.documentation = v:true
+
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.nvim_lua = v:true
+let g:compe.source.spell = v:true
+let g:compe.source.tags = v:true
+let g:compe.source.treesitter = v:true
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <Tab>     compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
