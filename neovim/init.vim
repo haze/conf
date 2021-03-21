@@ -37,11 +37,13 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend upda
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'dominikduda/vim_current_word'
 Plug 'junegunn/seoul256.vim'
+Plug 'char/logos.vim'
 Plug 'sainnhe/sonokai'
 Plug 'sainnhe/edge'
 Plug 'hrsh7th/nvim-compe'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
+Plug 'mhartington/formatter.nvim'
 Plug 'tmsvg/pear-tree'
 Plug 'ziglang/zig.vim'
 Plug 'LnL7/vim-nix'
@@ -131,8 +133,11 @@ endfunction
 nnoremap z "_x
 vnoremap z "_x
 
+
 nnoremap c "_c
 vnoremap c "_c
+
+nnoremap :W :w
 
 let g:fzf_layout = { 'window': 'below 15split enew' }
 
@@ -262,6 +267,7 @@ lspconfig.jsonls.setup{on_attach=custom_attach}
 lspconfig.html.setup{on_attach=custom_attach}
 lspconfig.cssls.setup{on_attach=custom_attach}
 lspconfig.rnix.setup{on_attach=custom_attach}
+lspconfig.tsserver.setup{on_attach=custom_attach}
 
 require'nvim-treesitter.configs'.setup {
   indent = {
@@ -272,6 +278,27 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
+require('formatter').setup({
+  logging = false,
+  filetype = {
+    javascript = {
+      function()
+        return {
+          exe = "prettier",
+          args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
+          stdin = true
+        }
+      end
+    }
+  }
+})
+
+vim.api.nvim_exec([[
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost *.js,*.ts FormatWrite
+augroup END
+]], true)
 EOF
 
 autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
