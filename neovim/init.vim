@@ -4,12 +4,16 @@ endif
 
 set mouse=a
 set nu
+
+set cursorline
 set tabstop=4 expandtab shiftwidth=2 smarttab autoindent
-set noshowmode
+
+" set noshowmode
 set wildmenu
 set termguicolors
 set clipboard=unnamed
-set laststatus=0
+" set laststatus=0
+set noswapfile
 
 set updatetime=50
 set nobackup
@@ -31,28 +35,28 @@ set icm=nosplit
 call plug#begin('~/.vim/plugged')
 Plug 'arzg/vim-swift'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'bluz71/vim-moonfly-colors'
+Plug 'sjl/badwolf'
+Plug 'folke/lsp-colors.nvim'
+Plug 'AlessandroYorba/Alduin'
 Plug 'dominikduda/vim_current_word'
-Plug 'junegunn/seoul256.vim'
-Plug 'char/logos.vim'
-Plug 'sainnhe/sonokai'
-Plug 'sainnhe/edge'
 Plug 'hrsh7th/nvim-compe'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
-Plug 'mhartington/formatter.nvim'
+Plug 'hoob3rt/lualine.nvim'
 Plug 'tmsvg/pear-tree'
+Plug 'dag/vim-fish'
 Plug 'ziglang/zig.vim'
 Plug 'LnL7/vim-nix'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'scrooloose/nerdtree'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'yuezk/vim-js'
-Plug 'miyakogi/conoline.vim'
 Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-abolish'
@@ -61,15 +65,22 @@ Plug 'PeterRincker/vim-searchlight'
 Plug 'APZelos/blamer.nvim'
 Plug 'haze/sitruuna.vim'
 Plug 'farmergreg/vim-lastplace'
+Plug 'romgrk/nvim-treesitter-context'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'darfink/vim-plist'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'rktjmp/lush.nvim'
+Plug 'nvim-treesitter/playground'
+Plug '~/src/based'
 call plug#end()
 
 filetype plugin indent on
 syntax enable
 set background=dark
 
-" Rust comments:
+" vim-commentary custom filetype comments
 autocmd FileType rust setlocal commentstring=//\ %s
+autocmd FileType swift setlocal commentstring=//\ %s
 
 map <C-j> :cn<CR>
 map <C-k> :cp<CR>
@@ -79,15 +90,9 @@ set autoread
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
 autocmd CompleteDone * pclose
-
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-map <C-e> :NERDTreeToggle<CR>
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-function! CocCurrentFunction()
-  return get(b:, 'coc_current_function', '')
-endfunction
+map <silent> <C-e> :NvimTreeToggle<CR>
 
 nnoremap <S-j> :m .+1<CR>==
 nnoremap <S-k> :m .-2<CR>==
@@ -106,28 +111,8 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
 " Use Q to show documentation in preview window
 nnoremap <silent> Q :call <SID>show_documentation()<CR>
-
-nmap <silent> rn <Plug>(coc-rename)
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 " Send x's from z to blackhole reg
 nnoremap z "_x
@@ -216,11 +201,42 @@ let g:pear_tree_repeatable_expand = 0
 let g:conoline_auto_enable = 1
 
 let g:blamer_delay = 1500
+let g:blamer_enabled = 1
 
 let mapleader = ','
 
-" LSP Stuff
+nnoremap <silent> <leader>t :TSHighlightCapturesUnderCursor<CR>
+
+" Lua Stuff
 lua <<EOF
+
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+lsp_status.config{
+  indicator_errors = 'E',
+  indicator_warnings = 'W',
+  indicator_info = 'i',
+  indicator_hint = '?',
+  indicator_ok = 'Ok',
+  current_function = false,
+  diagnostics = false,
+  status_symbol = '',
+}
+
+require('lualine').setup{
+  options = {
+    theme = 'modus_vivendi'
+  },
+  sections = {
+    lualine_c = {'filename', {lsp_status.status}},
+    lualine_x = {},
+    lualine_y = {},
+  },
+  inactive_sections = {
+  },
+}
+require('colorizer').setup()
+
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig/configs'
 
@@ -228,10 +244,21 @@ local map = function(type, key, value)
   vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
 end
 
-require'lsp_signature'.on_attach()
+function NvimTreeOSOpen()
+  local lib = require "nvim-tree.lib"
+  local node = lib.get_node_at_cursor()
+  if node then
+    vim.fn.jobstart("open '" .. node.absolute_path .. "' &", {detach = true})
+  end
+end
 
 local custom_attach = function(client)
-    print("LSP started");
+    lsp_status.on_attach(client)
+
+    print("LanguageServer Attatched");
+    if client.name ~= 'tsserver' then 
+      vim.api.nvim_command("au BufWritePost <buffer> lua vim.lsp.buf.formatting_sync(nil, 3000)")
+    end
 
     map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
     map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -258,88 +285,123 @@ local custom_attach = function(client)
 end
 
 lspconfig.zls.setup{on_attach=custom_attach}
-lspconfig.rust_analyzer.setup{on_attach=custom_attach}
+lspconfig.rust_analyzer.setup{on_attach=custom_attach, settings={
+  ['rust-analyzer'] = {
+      cargo = {
+        target = "wasm32-unknown-unknown",
+      },
+      checkOnSave = {
+        target = "wasm32-unknown-unknown",
+      }
+    }
+}}
 lspconfig.clangd.setup{
+  handlers = lsp_status.extensions.clangd.setup(),
   on_attach=custom_attach,
+  init_options = {
+    clangdFileStatus = true
+  },
   cmd = {'clangd'},
+  capabilities = lsp_status.capabilities,
 }
-lspconfig.jsonls.setup{on_attach=custom_attach}
-lspconfig.html.setup{on_attach=custom_attach}
-lspconfig.cssls.setup{on_attach=custom_attach}
-lspconfig.rnix.setup{on_attach=custom_attach}
-lspconfig.tsserver.setup{on_attach=custom_attach}
+lspconfig.jsonls.setup{
+  on_attach=custom_attach,
+  capabilities = lsp_status.capabilities,
+}
+lspconfig.html.setup{
+  on_attach=custom_attach,
+  capabilities = lsp_status.capabilities,
+}
+lspconfig.cssls.setup{
+  on_attach=custom_attach,
+  capabilities = lsp_status.capabilities,
+}
+lspconfig.sourcekit.setup{
+  on_attach=custom_attach,
+  capabilities = lsp_status.capabilities,
+}
+lspconfig.tsserver.setup{
+  on_attach=custom_attach, 
+  root_dir = vim.loop.cwd,
+  capabilities = lsp_status.capabilities,
+}
+
+require'treesitter-context.config'.setup{
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+}
+
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.zig = {
+  install_info = {
+    url = "https://github.com/maxxnino/tree-sitter-zig", -- local path or git repo
+    files = {"src/parser.c"}
+  },
+}
 
 require'nvim-treesitter.configs'.setup {
-  indent = {
-    enable = true
-  },
   highlight = {
-    enable = true
+    enable = true,
+    additional_vim_regex_highlighting = false,
   }
 }
 
-require('formatter').setup({
-  logging = false,
-  filetype = {
-    javascript = {
-      function()
-        return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
-          stdin = true
-        }
-      end
-    }
-  }
-})
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
 
-vim.api.nvim_exec([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.js,*.ts FormatWrite
-augroup END
-]], true)
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') 
+end
+
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return vim.fn['compe#confirm']();
+  else
+    return t "<Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'always';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    spell = false;
+    tags = true;
+  };
+}
 EOF
 
-autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufWritePre *.c lua vim.lsp.buf.formatting_sync(nil, 1000)
-
 set background=dark
-let g:seoul256_background = 233
-colorscheme seoul256
+let g:sitruuna_transparent_background = v:false
+let g:sitruuna_theme = 'yellow'
+
+colorscheme based
 
 highlight! link LspDiagnosticsSignError Exception
 highlight! link LspDiagnosticsSignWarning WarningMsg
+
 hi CurrentWord guifg=NONE guibg=#303030 gui=underline
 
-" nvim-compe
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.autocomplete = v:true
-let g:compe.debug = v:false
-let g:compe.min_length = 1
-let g:compe.preselect = 'always'
-let g:compe.throttle_time = 80
-let g:compe.source_timeout = 200
-let g:compe.incomplete_delay = 400
-let g:compe.max_abbr_width = 100
-let g:compe.max_kind_width = 100
-let g:compe.max_menu_width = 100
-let g:compe.documentation = v:true
-
-let g:compe.source = {}
-let g:compe.source.path = v:true
-let g:compe.source.buffer = v:true
-let g:compe.source.calc = v:true
-let g:compe.source.nvim_lsp = v:true
-let g:compe.source.nvim_lua = v:true
-let g:compe.source.spell = v:true
-let g:compe.source.tags = v:true
-let g:compe.source.treesitter = v:true
-
 inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <Tab>     compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })

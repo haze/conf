@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
+# let 
+#   pkgsX86 = import <nixpkgs> { localSystem = "x86_64-darwin"; overlays = config.nixpkgs.overlays; };
+# in 
 {
-	
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
       url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
@@ -18,52 +20,55 @@
 '';
   };
 
+  users.nix.configureBuildUsers = true;
+  nix.nixPath = [ "darwin=/nix/store/pafi8wjxc8f9sslyb578cwddsrpki1nv-nix-darwin" ];
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs;
-    [ # neovim-nightly
-      ripgrep
-      exa
-      go
-      vivid
-      youtube-dl
-      kubectl
-      #rustup
-      #cargo-edit
-      #ffmpeg
-      #cmake
-      #python39
-      #fzf
-      #python39Packages.pip
-      icu
-      hyperfine
-      rnix-lsp
-      nix-index
+  [ 
+      # neovim-nightly
+      # ripgrep
+      # exa
+      # go
+      # vivid
+      # youtube-dl
+      # kubectl
+      # rustup
+      # cargo-edit
+      # ffmpeg
+      # cmake
+      # python39
+      # fzf
+      # python39Packages.pip
+      # icu
+      # hyperfine
+      # rnix-lsp
+      # nix-index
       # adoptopenjdk-bin
-      gnupg
-      pinentry_mac
-      tldr
-      bat
-      wget
-      lzma
+      # gnupg
+      # pinentry_mac
+      # tldr
+      # bat
+      # wget
+      # lzma
       # nodejs-12_x
       # nodePackages.vscode-css-languageserver-bin
       # nodePackages.vscode-html-languageserver-bin
       # nodePackages.vscode-json-languageserver-bin
       # nodePackages.nodemon
-      google-cloud-sdk
-      curlFull.dev
-      htop
-      neofetch
-      direnv
-      #pkg-config
-      awscli
-      jq
-      ssm-session-manager-plugin
-      yarn
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-      gst_all_1.gstreamer
+      # google-cloud-sdk
+      # curlFull.dev
+      # htop
+      # neofetch
+      # direnv
+      # awscli
+      # jq
+      # ssm-session-manager-plugin
+      # yarn
+      # gst_all_1.gst-plugins-base
+      # gst_all_1.gst-plugins-good
+      # gst_all_1.gstreamer
     ];
 
   # Use a custom configuration.nix location.
@@ -72,8 +77,6 @@
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-
-  nix.nixPath = [ "darwin=/Users/haze/.nix-defexpr/channels/darwin" ];
 
   services.lorri.enable = true;
   nix.package = pkgs.nix;
@@ -85,6 +88,5 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
-  nixpkgs.config.allowUnfree = true;
   environment.variables.NODE_PATH="${pkgs.nodePackages.webpack.out}/lib/node_modules";
 }
