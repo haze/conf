@@ -201,7 +201,7 @@ let g:pear_tree_repeatable_expand = 0
 let g:conoline_auto_enable = 1
 
 let g:blamer_delay = 1500
-let g:blamer_enabled = 1
+let g:blamer_enabled = 0
 
 let mapleader = ','
 
@@ -361,6 +361,7 @@ _G.tab_complete = function()
     return t "<Tab>"
   end
 end
+-1f-1
 
 vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 
