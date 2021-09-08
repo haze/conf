@@ -10,10 +10,10 @@ return require('packer').startup(function()
   use 'tpope/vim-sleuth'
   use 'hoob3rt/lualine.nvim'
   use 'L3MON4D3/LuaSnip'
+  use 'windwp/nvim-autopairs'
   use {
     'hrsh7th/nvim-cmp', 
     requires = {
-      'windwp/nvim-autopairs',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       { 'Saecki/crates.nvim',
@@ -23,6 +23,7 @@ return require('packer').startup(function()
       },
       'hrsh7th/cmp-emoji',
       'hrsh7th/cmp-calc',
+      'hrsh7th/cmp-buffer',
       'saadparwaiz1/cmp_luasnip',
     }
   }
@@ -33,10 +34,20 @@ return require('packer').startup(function()
   use {'arzg/vim-rust-syntax-ext', ft = {'rust'}}
   use 'PeterRincker/vim-searchlight'
   use 'farmergreg/vim-lastplace'
-  use 'junegunn/fzf.vim'
-  use 'junegunn/fzf'
+  -- use 'junegunn/fzf.vim'
+  -- use 'junegunn/fzf'
+  use {
+    'ibhagwan/fzf-lua',
+    requires = {
+      'vijaymarupudi/nvim-fzf'
+    }
+  }
   use 'romainl/vim-cool'
   use 'tpope/vim-unimpaired'
   use 'rktjmp/lush.nvim'
+  use {'yuezk/vim-js', ft = {'js'}}
+  use 'maxmellon/vim-jsx-pretty'
+  use 'lukas-reineke/indent-blankline.nvim'
   use '~/src/based'
+  use 'kyazdani42/nvim-web-devicons'
 end)

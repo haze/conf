@@ -74,6 +74,7 @@ opt('clipboard', 'unnamedplus')
 opt('signcolumn', 'yes:1', window)
 opt('hlsearch', true)
 opt('incsearch', true)
+opt('swapfile', false)
 opt('icm', 'nosplit')
 
 -- Colorscheme
@@ -104,8 +105,8 @@ cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compil
 -- Mappings
 local silent = { silent = true }
 map('n', '<C-e>', '<cmd>NvimTreeToggle<cr>', silent)
-map('n', '<S-f>', '<cmd>Files<cr>', silent)
-map('n', '<S-tab>', '<cmd>Rg<cr>', silent)
+map('n', '<S-f>', "<cmd>lua require('fzf-lua').files()<cr>", silent)
+map('n', '<S-tab>', "<cmd>lua require('fzf-lua').live_grep()<cr>", silent)
 map({'n','v'}, 'c', '"_c',  silent)
 map({'n','v'}, 'z', '"_x',  silent)
 map('n', '<S-k>', '<cmd>m .-2<cr>==', silent)

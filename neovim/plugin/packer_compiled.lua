@@ -77,6 +77,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/based"
   },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+  },
   ["cmp-calc"] = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-calc"
@@ -101,13 +105,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/crates.nvim"
   },
-  fzf = {
+  ["fzf-lua"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/fzf"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/fzf-lua"
   },
-  ["fzf.vim"] = {
+  ["indent-blankline.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/fzf.vim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
   },
   ["lsp-colors.nvim"] = {
     loaded = true,
@@ -141,6 +145,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
+  ["nvim-fzf"] = {
+    loaded = true,
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-fzf"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
@@ -148,6 +156,10 @@ _G.packer_plugins = {
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -174,6 +186,15 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish"
+  },
+  ["vim-js"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js"
+  },
+  ["vim-jsx-pretty"] = {
+    loaded = true,
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-jsx-pretty"
   },
   ["vim-lastplace"] = {
     loaded = true,
@@ -212,21 +233,25 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType rust ++once lua require("packer.load")({'rust.vim', 'vim-rust-syntax-ext'}, { ft = "rust" }, _G.packer_plugins)]]
-vim.cmd [[au FileType zig ++once lua require("packer.load")({'zig.vim'}, { ft = "zig" }, _G.packer_plugins)]]
 vim.cmd [[au FileType fish ++once lua require("packer.load")({'vim-fish'}, { ft = "fish" }, _G.packer_plugins)]]
+vim.cmd [[au FileType rust ++once lua require("packer.load")({'vim-rust-syntax-ext', 'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
+vim.cmd [[au FileType zig ++once lua require("packer.load")({'zig.vim'}, { ft = "zig" }, _G.packer_plugins)]]
+vim.cmd [[au FileType js ++once lua require("packer.load")({'vim-js'}, { ft = "js" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]], true)
+vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]]
+time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]], false)
+time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]], true)
+vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]]
+time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]], false)
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], true)
 vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]]
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], false)
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], true)
 vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]]
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], false)
-time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]], true)
-vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]]
-time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
