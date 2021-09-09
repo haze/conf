@@ -7,6 +7,7 @@ return require('packer').startup(function()
   use 'folke/lsp-colors.nvim'
   use 'norcalli/nvim-colorizer.lua'
   use 'tomtom/tcomment_vim'
+  use 'sheerun/vim-polyglot'
   use 'tpope/vim-sleuth'
   use 'hoob3rt/lualine.nvim'
   use 'L3MON4D3/LuaSnip'
@@ -34,8 +35,6 @@ return require('packer').startup(function()
   use {'arzg/vim-rust-syntax-ext', ft = {'rust'}}
   use 'PeterRincker/vim-searchlight'
   use 'farmergreg/vim-lastplace'
-  -- use 'junegunn/fzf.vim'
-  -- use 'junegunn/fzf'
   use {
     'ibhagwan/fzf-lua',
     requires = {

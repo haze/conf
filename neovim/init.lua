@@ -8,7 +8,7 @@ local autocmd = utils.autocmd
 local map = utils.map
 
 -- Leader/local leader
-g.mapleader = [[ ]]
+g.mapleader = [[,]]
 g.maplocalleader = [[,]]
 
 -- Skip some remote provider loading
@@ -20,8 +20,6 @@ g.python3_host_prog = '/usr/bin/python'
 local disabled_built_ins = {
   'gzip',
   'man',
-  'matchit',
-  'matchparen',
   'shada_plugin',
   'tarPlugin',
   'tar',
@@ -30,7 +28,7 @@ local disabled_built_ins = {
   'netrwPlugin',
 }
 
-for i = 1, 10 do
+for i = 1, 8 do
   g['loaded_' .. disabled_built_ins[i]] = 1
 end
 
@@ -111,6 +109,7 @@ map({'n','v'}, 'c', '"_c',  silent)
 map({'n','v'}, 'z', '"_x',  silent)
 map('n', '<S-k>', '<cmd>m .-2<cr>==', silent)
 map('n', '<S-j>', '<cmd>m .+1<cr>==', silent)
+map('n', '<leader>t', '<cmd>WhatHighlight<cr>', silent)
 map('v', '<S-k>', '[egv', { silent = true, noremap = false })
 map('v', '<S-j>', ']egv', { silent = true, noremap = false })
 map('n', ':W', ':w')

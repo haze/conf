@@ -12,8 +12,9 @@ cmp.setup {
     end
   },
   experimental = {
-    hl_group = 'Comment',
-    ghost_text = true,
+    ghost_text = {
+      hl_group = 'Comment',
+    },
   },
   completion = {
     completeopt = 'menu,menuone,noinsert',
@@ -40,11 +41,8 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'buffer' },
     { name = 'luasnip' },
     { name = 'path' },
-    { name = 'emoji' },
-    { name = 'calc' },
   };
 }
 

@@ -200,6 +200,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-lastplace"
   },
+  ["vim-polyglot"] = {
+    loaded = true,
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-polyglot"
+  },
   ["vim-rust-syntax-ext"] = {
     loaded = false,
     needs_bufread = false,
@@ -220,11 +224,6 @@ _G.packer_plugins = {
   vim_current_word = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim_current_word"
-  },
-  ["zig.vim"] = {
-    loaded = false,
-    needs_bufread = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim"
   }
 }
 
@@ -233,25 +232,21 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType fish ++once lua require("packer.load")({'vim-fish'}, { ft = "fish" }, _G.packer_plugins)]]
-vim.cmd [[au FileType rust ++once lua require("packer.load")({'vim-rust-syntax-ext', 'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
-vim.cmd [[au FileType zig ++once lua require("packer.load")({'zig.vim'}, { ft = "zig" }, _G.packer_plugins)]]
 vim.cmd [[au FileType js ++once lua require("packer.load")({'vim-js'}, { ft = "js" }, _G.packer_plugins)]]
+vim.cmd [[au FileType rust ++once lua require("packer.load")({'vim-rust-syntax-ext', 'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
+vim.cmd [[au FileType fish ++once lua require("packer.load")({'vim-fish'}, { ft = "fish" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], true)
+vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]]
+time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], false)
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]], true)
 vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]]
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]], false)
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]], true)
 vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]]
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]], false)
-time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], true)
-vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]]
-time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], false)
-time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], true)
-vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]]
-time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/rust.vim/ftdetect/rust.vim]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
