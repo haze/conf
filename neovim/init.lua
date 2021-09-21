@@ -104,7 +104,9 @@ cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compil
 local silent = { silent = true }
 map('n', '<C-e>', '<cmd>NvimTreeToggle<cr>', silent)
 map('n', '<S-f>', "<cmd>lua require('fzf-lua').files()<cr>", silent)
-map('n', '<S-tab>', "<cmd>lua require('fzf-lua').live_grep()<cr>", silent)
+map('n', '<S-tab>', "<cmd>lua require'fzf-lua.providers.grep'.live_grep()<cr>", silent)
+map('n', '<S-l>', "<cmd>lua require('fzf-lua').lsp_live_workspace_symbols()<cr>", silent)
+map('n', '<S-w>', "<cmd>lua require('fzf-lua').lsp_document_diagnostics()<cr>", silent)
 map({'n','v'}, 'c', '"_c',  silent)
 map({'n','v'}, 'z', '"_x',  silent)
 map('n', '<S-k>', '<cmd>m .-2<cr>==', silent)

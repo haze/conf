@@ -7,11 +7,12 @@ return require('packer').startup(function()
   use 'folke/lsp-colors.nvim'
   use 'norcalli/nvim-colorizer.lua'
   use 'tomtom/tcomment_vim'
-  use 'sheerun/vim-polyglot'
+  -- use 'sheerun/vim-polyglot'
   use 'tpope/vim-sleuth'
   use 'hoob3rt/lualine.nvim'
   use 'L3MON4D3/LuaSnip'
   use 'windwp/nvim-autopairs'
+  use 'ggandor/lightspeed.nvim'
   use {
     'hrsh7th/nvim-cmp', 
     requires = {
@@ -30,9 +31,8 @@ return require('packer').startup(function()
   }
   use {'ziglang/zig.vim', ft = {'zig'}}
   use {'dag/vim-fish', ft = {'fish'}}
-  use 'kyazdani42/nvim-tree.lua'
   use {'rust-lang/rust.vim', ft = {'rust'}}
-  use {'arzg/vim-rust-syntax-ext', ft = {'rust'}}
+  use 'kyazdani42/nvim-tree.lua'
   use 'PeterRincker/vim-searchlight'
   use 'farmergreg/vim-lastplace'
   use {
@@ -48,5 +48,4 @@ return require('packer').startup(function()
   use 'maxmellon/vim-jsx-pretty'
   use 'lukas-reineke/indent-blankline.nvim'
   use '~/src/based'
-  use 'kyazdani42/nvim-web-devicons'
 end)

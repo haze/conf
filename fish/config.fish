@@ -14,8 +14,8 @@ set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin
-fish_add_path $HOME/src/depot_tools
 fish_add_path /opt/homebrew/bin
+fish_add_path $HOME/src/depot_tools
 
 alias cat="bat -p"
 alias c="cargo"
