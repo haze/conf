@@ -7,7 +7,7 @@ return require('packer').startup(function()
   use 'folke/lsp-colors.nvim'
   use 'norcalli/nvim-colorizer.lua'
   use 'tomtom/tcomment_vim'
-  -- use 'sheerun/vim-polyglot'
+  use 'sheerun/vim-polyglot'
   use 'tpope/vim-sleuth'
   use 'hoob3rt/lualine.nvim'
   use 'L3MON4D3/LuaSnip'
@@ -18,7 +18,9 @@ return require('packer').startup(function()
     requires = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-      { 'Saecki/crates.nvim',
+      { 
+        'Saecki/crates.nvim',
+        ft = {'toml'},
         requires = {
           'nvim-lua/plenary.nvim',
         },
