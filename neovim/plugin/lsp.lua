@@ -78,6 +78,7 @@ lspconfig.jsonls.setup{
 lspconfig.html.setup{
   on_attach=custom_attach,
   capabilities = capabilities,
+  filetypes = { "jinja.html" },
 }
 lspconfig.cssls.setup{
   on_attach=custom_attach,
