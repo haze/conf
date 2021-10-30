@@ -8,9 +8,11 @@ return require('packer').startup(function()
   use 'norcalli/nvim-colorizer.lua'
   use 'tomtom/tcomment_vim'
   use 'tpope/vim-sleuth'
+  use 'rhysd/vim-llvm'
   use 'hoob3rt/lualine.nvim'
   use 'L3MON4D3/LuaSnip'
   use 'windwp/nvim-autopairs'
+  use 'msanders/cocoa.vim'
   use 'ggandor/lightspeed.nvim'
   use 'Glench/Vim-Jinja2-Syntax'
   use {
@@ -18,13 +20,6 @@ return require('packer').startup(function()
     requires = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-      { 
-        'Saecki/crates.nvim',
-        ft = {'toml'},
-        requires = {
-          'nvim-lua/plenary.nvim',
-        },
-      },
       'hrsh7th/cmp-emoji',
       'hrsh7th/cmp-calc',
       'hrsh7th/cmp-buffer',
@@ -48,5 +43,7 @@ return require('packer').startup(function()
   use 'rktjmp/lush.nvim'
   use {'yuezk/vim-js', ft = {'javascript'}}
   use 'lukas-reineke/indent-blankline.nvim'
+  use 'vimoxide/vim-cinnabar'
+  use 'alexanderheldt/monokrom.vim'
   use '~/src/based'
 end)

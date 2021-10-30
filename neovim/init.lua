@@ -1,4 +1,10 @@
 -- Adapted from https://github.com/wbthomason/dotfiles/blob/linux/neovim/.config/nvim/init.lua
+
+vim.api.nvim_command([[
+  autocmd colorscheme cinnabar hi clear CursorLine | hi CursorLine guibg=#151515
+  hi AutoCompleteGhostText guifg=#595959
+]])
+
 local g = vim.g
 local cmd = vim.cmd
 local o, wo, bo = vim.o, vim.wo, vim.bo
@@ -78,7 +84,6 @@ opt('icm', 'nosplit')
 -- Colorscheme
 opt('termguicolors', true)
 opt('background', 'dark')
-cmd [[colorscheme based]]
 
 -- Autocommands
 autocmd(
@@ -123,3 +128,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
   vim.cmd 'packadd packer.nvim'
 end
+
+
+
+cmd [[colorscheme cinnabar]]

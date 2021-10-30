@@ -51,6 +51,11 @@ lspconfig.zls.setup{
 lspconfig.rust_analyzer.setup{
   on_attach = custom_attach, 
   settings = {
+    ['rust-analyzer'] = {
+      checkOnSave = {
+        command = "clippy",
+      }
+    },
   -- ['rust-analyzer'] = {
   --     cargo = {
   --       target = "wasm32-unknown-unknown",

@@ -12,10 +12,15 @@ set -gx GPG_TTY (tty)
 set -gx FZF_DEFAULT_COMMAND 'fd'
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
+fish_add_path /opt/local/bin
+fish_add_path /opt/local/sbin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path $HOME/src/depot_tools
+
+set -gx CPATH /opt/local/include/
+set -gx LIBRARY_PATH /opt/local/lib/
 
 alias cat="bat -p"
 alias c="cargo"

@@ -4,9 +4,10 @@ bindkey '^R' history-search-multi-word
 setopt MENU_COMPLETE
 export KEYTIMEOUT=1
 
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=$HOME/src/depot_tools:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export NIXPKGS_ALLOW_UNFREE=1
 source /etc/static/zshrc
 export EDITOR=nvim
