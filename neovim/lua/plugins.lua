@@ -26,7 +26,9 @@ return require('packer').startup(function()
       'saadparwaiz1/cmp_luasnip',
     }
   }
-  use {'ziglang/zig.vim', ft = {'zig'}}
+  use {
+    'ziglang/zig.vim', ft = {'zig'}
+  }
   use {'dag/vim-fish', ft = {'fish'}}
   -- use {'rust-lang/rust.vim', ft = {'rust'}}
   use 'kyazdani42/nvim-tree.lua'
@@ -45,5 +47,4 @@ return require('packer').startup(function()
   use 'lukas-reineke/indent-blankline.nvim'
   use 'vimoxide/vim-cinnabar'
   use 'alexanderheldt/monokrom.vim'
-  use '~/src/based'
 end)

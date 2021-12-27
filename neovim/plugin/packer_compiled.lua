@@ -57,7 +57,7 @@ end
 time([[Luarocks path setup]], false)
 time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
-  local success, result = pcall(loadstring(s))
+  local success, result = pcall(loadstring(s), name, _G.packer_plugins[name])
   if not success then
     vim.schedule(function()
       vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
@@ -71,161 +71,194 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   LuaSnip = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/LuaSnip"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/LuaSnip",
+    url = "https://github.com/L3MON4D3/LuaSnip"
   },
   ["Vim-Jinja2-Syntax"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/Vim-Jinja2-Syntax"
-  },
-  based = {
-    loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/based"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/Vim-Jinja2-Syntax",
+    url = "https://github.com/Glench/Vim-Jinja2-Syntax"
   },
   ["cmp-buffer"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    url = "https://github.com/hrsh7th/cmp-buffer"
   },
   ["cmp-calc"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-calc"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-calc",
+    url = "https://github.com/hrsh7th/cmp-calc"
   },
   ["cmp-emoji"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-emoji"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-emoji",
+    url = "https://github.com/hrsh7th/cmp-emoji"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["cmp-path"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-path"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp-path",
+    url = "https://github.com/hrsh7th/cmp-path"
   },
   cmp_luasnip = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp_luasnip"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   ["cocoa.vim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cocoa.vim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/cocoa.vim",
+    url = "https://github.com/msanders/cocoa.vim"
   },
   ["fzf-lua"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/fzf-lua"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/fzf-lua",
+    url = "https://github.com/ibhagwan/fzf-lua"
   },
   ["indent-blankline.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lightspeed.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lightspeed.nvim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lightspeed.nvim",
+    url = "https://github.com/ggandor/lightspeed.nvim"
   },
   ["lsp-colors.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim",
+    url = "https://github.com/folke/lsp-colors.nvim"
   },
   ["lsp-status.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lsp-status.nvim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lsp-status.nvim",
+    url = "https://github.com/nvim-lua/lsp-status.nvim"
   },
   ["lsp_signature.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
+    url = "https://github.com/ray-x/lsp_signature.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lualine.nvim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/hoob3rt/lualine.nvim"
   },
   ["lush.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lush.nvim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/lush.nvim",
+    url = "https://github.com/rktjmp/lush.nvim"
   },
   ["monokrom.vim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/monokrom.vim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/monokrom.vim",
+    url = "https://github.com/alexanderheldt/monokrom.vim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
   },
   ["nvim-cmp"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-cmp"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-colorizer.lua"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
+    url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-fzf"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-fzf"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-fzf",
+    url = "https://github.com/vijaymarupudi/nvim-fzf"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    url = "https://github.com/wbthomason/packer.nvim"
   },
   tcomment_vim = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/tcomment_vim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/tcomment_vim",
+    url = "https://github.com/tomtom/tcomment_vim"
   },
   ["vim-cinnabar"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-cinnabar"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-cinnabar",
+    url = "https://github.com/vimoxide/vim-cinnabar"
   },
   ["vim-cool"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-cool"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-cool",
+    url = "https://github.com/romainl/vim-cool"
   },
   ["vim-fish"] = {
     loaded = false,
     needs_bufread = true,
     only_cond = false,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish",
+    url = "https://github.com/dag/vim-fish"
   },
   ["vim-js"] = {
     loaded = false,
     needs_bufread = true,
     only_cond = false,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js",
+    url = "https://github.com/yuezk/vim-js"
   },
   ["vim-lastplace"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-lastplace"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-lastplace",
+    url = "https://github.com/farmergreg/vim-lastplace"
   },
   ["vim-llvm"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-llvm"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-llvm",
+    url = "https://github.com/rhysd/vim-llvm"
   },
   ["vim-searchlight"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-searchlight"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-searchlight",
+    url = "https://github.com/PeterRincker/vim-searchlight"
   },
   ["vim-sleuth"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-sleuth"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-sleuth",
+    url = "https://github.com/tpope/vim-sleuth"
   },
   ["vim-unimpaired"] = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-unimpaired"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-unimpaired",
+    url = "https://github.com/tpope/vim-unimpaired"
   },
   vim_current_word = {
     loaded = true,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim_current_word"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim_current_word",
+    url = "https://github.com/dominikduda/vim_current_word"
   },
   ["zig.vim"] = {
     loaded = false,
     needs_bufread = true,
     only_cond = false,
-    path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim"
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim",
+    url = "https://github.com/ziglang/zig.vim"
   }
 }
 
@@ -235,8 +268,8 @@ vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
 vim.cmd [[au FileType javascript ++once lua require("packer.load")({'vim-js'}, { ft = "javascript" }, _G.packer_plugins)]]
-vim.cmd [[au FileType zig ++once lua require("packer.load")({'zig.vim'}, { ft = "zig" }, _G.packer_plugins)]]
 vim.cmd [[au FileType fish ++once lua require("packer.load")({'vim-fish'}, { ft = "fish" }, _G.packer_plugins)]]
+vim.cmd [[au FileType zig ++once lua require("packer.load")({'zig.vim'}, { ft = "zig" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]

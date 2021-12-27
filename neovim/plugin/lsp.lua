@@ -1,17 +1,12 @@
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig/configs'
-
-local lsp_status = require('lsp-status')
-local capabilities = require('cmp_nvim_lsp').update_capabilities(lsp_status.capabilities)
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local map = function(type, key, value)
   vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
 end
 
-
 local custom_attach = function(client)
-    lsp_status.on_attach(client)
-
     print("LanguageServer Attatched");
     if client.name ~= 'tsserver' then 
       vim.api.nvim_command("au BufWritePost <buffer> lua vim.lsp.buf.formatting_sync(nil, 3000)")
@@ -68,7 +63,6 @@ lspconfig.rust_analyzer.setup{
   capabilities = capabilities,
 }
 lspconfig.clangd.setup{
-  handlers = lsp_status.extensions.clangd.setup(),
   on_attach=custom_attach,
   init_options = {
     clangdFileStatus = true
@@ -81,6 +75,7 @@ lspconfig.jsonls.setup{
   capabilities = capabilities,
 }
 lspconfig.html.setup{
+  cmd = {'html-languageserver'},
   on_attach=custom_attach,
   capabilities = capabilities,
   filetypes = { "jinja.html" },

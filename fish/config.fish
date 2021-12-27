@@ -41,6 +41,15 @@ alias lctl='launchctl'
 
 scheme set zenburn
 
+function gen_port_checksums -d "Generate rmd160 & sha256 checksums for the given file"
+    set sha256 (openssl dgst -sha256 $argv[1] | cut -d' ' -f2)
+    set rmd160 (openssl dgst -rmd160 $argv[1] | cut -d' ' -f2)
+    set size (stat -f %z $argv[1])
+    echo "checksums           sha256  $sha256 \\"
+    echo "                    rmd160  $rmd160 \\"
+    echo "                    size    $size"
+end
+
 function d -d "Create a directory and set CWD"
     command mkdir -p $argv
     if test $status = 0

@@ -22,6 +22,9 @@ g.loaded_python_provider = 0
 g.python_host_prog = '/usr/bin/python2'
 g.python3_host_prog = '/usr/bin/python'
 
+-- Zig statics 
+g.zig_std_dir = '/Users/haze/src/zig/lib/std'
+
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {
   'gzip',
@@ -109,7 +112,7 @@ cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compil
 local silent = { silent = true }
 map('n', '<C-e>', '<cmd>NvimTreeToggle<cr>', silent)
 map('n', '<S-f>', "<cmd>lua require('fzf-lua').files()<cr>", silent)
-map('n', '<S-tab>', "<cmd>lua require'fzf-lua.providers.grep'.live_grep()<cr>", silent)
+map('n', '<S-tab>', "<cmd>lua require'fzf-lua.providers.grep'.live_grep_native()<cr>", silent)
 map('n', '<S-l>', "<cmd>lua require('fzf-lua').lsp_live_workspace_symbols()<cr>", silent)
 map('n', '<S-w>', "<cmd>lua require('fzf-lua').lsp_document_diagnostics()<cr>", silent)
 map({'n','v'}, 'c', '"_c',  silent)
