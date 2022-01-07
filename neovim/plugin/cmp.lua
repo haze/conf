@@ -16,6 +16,7 @@ cmp.setup {
     ghost_text = {
       hl_group = 'AutoCompleteGhostText',
     },
+    native_menu = true,
   },
   completion = {
     completeopt = 'menu,menuone,noinsert',
@@ -41,24 +42,10 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
-    { name = 'buffer' },
+    -- { name = 'buffer' },
   };
 }
 
--- local t = function(str)
---   return vim.api.nvim_replace_termcodes(str, true, true, true)
--- end
-
--- _G.smart_tab_complete = function()
---   if vim.fn.pumvisible() == 1 then
---     return vim.fn['compe#confirm']();
---   else
---     return t "<Tab>"
---   end
--- end
---
--- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.smart_tab_complete()", {expr = true})
---
 require('nvim-autopairs').setup{};
 
-cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done())
+cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())

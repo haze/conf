@@ -11,6 +11,7 @@ set -gx GPG_TTY (tty)
 
 set -gx FZF_DEFAULT_COMMAND 'fd'
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+set -gx EXA_COLORS 'di=33'
 
 fish_add_path /opt/local/bin
 fish_add_path /opt/local/sbin

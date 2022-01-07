@@ -29,9 +29,9 @@ return require('packer').startup(function()
   use {
     'ziglang/zig.vim', ft = {'zig'}
   }
-  use {'dag/vim-fish', ft = {'fish'}}
   -- use {'rust-lang/rust.vim', ft = {'rust'}}
   use 'kyazdani42/nvim-tree.lua'
+  use {'dag/vim-fish', ft = {'fish'}}
   use 'PeterRincker/vim-searchlight'
   use 'farmergreg/vim-lastplace'
   use {
@@ -46,5 +46,5 @@ return require('packer').startup(function()
   use {'yuezk/vim-js', ft = {'javascript'}}
   use 'lukas-reineke/indent-blankline.nvim'
   use 'vimoxide/vim-cinnabar'
-  use 'alexanderheldt/monokrom.vim'
+  use '/Users/haze/src/monokrom.vim'
 end)

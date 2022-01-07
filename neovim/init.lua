@@ -1,8 +1,7 @@
 -- Adapted from https://github.com/wbthomason/dotfiles/blob/linux/neovim/.config/nvim/init.lua
 
 vim.api.nvim_command([[
-  autocmd colorscheme cinnabar hi clear CursorLine | hi CursorLine guibg=#151515
-  hi AutoCompleteGhostText guifg=#595959
+  autocmd colorscheme monokrom hi clear CursorLine | hi CursorLine guibg=#151515
 ]])
 
 local g = vim.g
@@ -19,8 +18,8 @@ g.maplocalleader = [[,]]
 
 -- Skip some remote provider loading
 g.loaded_python_provider = 0
-g.python_host_prog = '/usr/bin/python2'
-g.python3_host_prog = '/usr/bin/python'
+g.python_host_prog = '/opt/local/bin/python2'
+g.python3_host_prog = '/opt/local/bin/python3'
 
 -- Zig statics 
 g.zig_std_dir = '/Users/haze/src/zig/lib/std'
@@ -96,12 +95,11 @@ autocmd(
 )
 autocmd('misc_aucmds', {
   [[BufWinEnter * checktime]],
-  [[TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=500}]],
   [[FileType qf set nobuflisted ]],
 }, true)
 
 -- Commands
-cmd [[command! WhatHighlight :call util#syntax_stack()]]
+cmd [[command! XHL :call util#syntax_stack()]]
 cmd [[command! PackerInstall packadd packer.nvim | lua require('plugins').install()]]
 cmd [[command! PackerUpdate packadd packer.nvim | lua require('plugins').update()]]
 cmd [[command! Sync packadd packer.nvim | lua require('plugins').sync()]]
@@ -119,10 +117,17 @@ map({'n','v'}, 'c', '"_c',  silent)
 map({'n','v'}, 'z', '"_x',  silent)
 map('n', '<S-k>', '<cmd>m .-2<cr>==', silent)
 map('n', '<S-j>', '<cmd>m .+1<cr>==', silent)
-map('n', '<leader>t', '<cmd>WhatHighlight<cr>', silent)
+map('n', '<leader>t', '<cmd>XHL<cr>', silent)
 map('v', '<S-k>', '[egv', { silent = true, noremap = false })
-map('v', '<S-j>', ']egv', { silent = true, noremap = false })
-map('n', ':W', ':w')
+map('v', '<s-j>', ']egv', { silent = true, noremap = false })
+
+-- Searchx
+-- map({'n', 'x'}, '?', "<cmd>call searchx#start({ 'dir': 0 })<CR>", {silent=true, noremap=true})
+-- map({'n', 'x'}, '/', "<cmd>call searchx#start({ 'dir': 1 })<CR>", {silent=true, noremap=true})
+-- map('c', ';', "<cmd>call searchx#select()<CR>", {silent=true, noremap=true})
+-- map({'n', 'x'}, 'N', "<cmd>call searchx#prev_dir()<CR>", {silent=true, noremap=true})
+-- map({'n', 'x'}, 'n', "<cmd>call searchx#next_dir()<CR>", {silent=true, noremap=true})
+-- map('n', '<C-l>', "<cmd>call searchx#clear()<CR>", {silent=true, noremap=true})
 
 -- Bootstrap packer
 local fn = vim.fn
@@ -134,4 +139,4 @@ end
 
 
 
-cmd [[colorscheme cinnabar]]
+cmd [[colorscheme monokrom]]
