@@ -19,6 +19,7 @@ fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path $HOME/src/depot_tools
+fish_add_path /Users/haze/src/lua-language-server/bin
 
 set -gx CPATH /opt/local/include/
 set -gx LIBRARY_PATH /opt/local/lib/
@@ -39,8 +40,6 @@ alias vizsh='nvim $HOME/.zshrc'
 alias vifish='nvim $HOME/.config/fish/config.fish'
 alias intel='arch -x86_64'
 alias lctl='launchctl'
-
-scheme set zenburn
 
 function gen_port_checksums -d "Generate rmd160 & sha256 checksums for the given file"
     set sha256 (openssl dgst -sha256 $argv[1] | cut -d' ' -f2)

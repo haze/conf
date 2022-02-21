@@ -14,9 +14,11 @@ cmp.setup {
   },
   experimental = {
     ghost_text = {
-      hl_group = 'AutoCompleteGhostText',
+      hl_group = 'Comment',
     },
-    native_menu = true,
+  },
+  view = {
+    entries = "custom"
   },
   completion = {
     completeopt = 'menu,menuone,noinsert',

@@ -1,9 +1,5 @@
 -- Adapted from https://github.com/wbthomason/dotfiles/blob/linux/neovim/.config/nvim/init.lua
 
-vim.api.nvim_command([[
-  autocmd colorscheme monokrom hi clear CursorLine | hi CursorLine guibg=#151515
-]])
-
 local g = vim.g
 local cmd = vim.cmd
 local o, wo, bo = vim.o, vim.wo, vim.bo
@@ -59,7 +55,7 @@ opt('expandtab', true, buffer)
 opt('shiftwidth', 2, buffer)
 opt('number', true, window)
 opt('smartindent', true, buffer)
-opt('laststatus', 2)
+opt('laststatus', 0)
 opt('showmode', false)
 opt('shada', [['20,<50,s10,h,/100]])
 opt('hidden', true)
@@ -85,7 +81,6 @@ opt('icm', 'nosplit')
 
 -- Colorscheme
 opt('termguicolors', true)
-opt('background', 'dark')
 
 -- Autocommands
 autocmd(
@@ -96,6 +91,7 @@ autocmd(
 autocmd('misc_aucmds', {
   [[BufWinEnter * checktime]],
   [[FileType qf set nobuflisted ]],
+  [[BufWritePost <buffer> lua require('lint').try_lint()]]
 }, true)
 
 -- Commands
@@ -136,7 +132,3 @@ if fn.empty(fn.glob(install_path)) > 0 then
   fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
   vim.cmd 'packadd packer.nvim'
 end
-
-
-
-cmd [[colorscheme monokrom]]
