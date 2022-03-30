@@ -1,0 +1,2 @@
+
+[ -d "/Users/haze/.config/kak/colors" ] || mkdir -p "/Users/haze/.config/kak/colors"; ln -sf "$PWD" "/Users/haze/.config/kak/colors"

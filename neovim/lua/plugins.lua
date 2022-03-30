@@ -1,8 +1,9 @@
 return require('packer').startup(function()
-  use 'wbthomason/packer.nvim'
+    use 'wbthomason/packer.nvim'
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
     use 'dominikduda/vim_current_word'
+    use 'LnL7/vim-nix'
     use 'ray-x/lsp_signature.nvim'
     use 'folke/lsp-colors.nvim'
     use 'norcalli/nvim-colorizer.lua'
@@ -11,8 +12,7 @@ return require('packer').startup(function()
     run = ':TSUpdate',
     requires = {
       {
-        'stsewd/playground',
-        branch = "fix-show-hl"
+        'nvim-treesitter/playground',
       },
     },
     }
@@ -93,6 +93,7 @@ return require('packer').startup(function()
     -- use {'rust-lang/rust.vim', ft = {'rust'}}
     use {
     'kyazdani42/nvim-tree.lua',
+    commit = 'f977e5c05a87c8658346959af301f097b2d8f126',
     requires = {
       'kyazdani42/nvim-web-devicons'
     }
@@ -115,4 +116,3 @@ return require('packer').startup(function()
     use '/Users/haze/src/monokrom.vim'
     use '/Users/haze/src/sys_appearance.nvim'
 end)
-

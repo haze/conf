@@ -234,7 +234,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["nvim-treesitter-context"] = {
-    config = { "\27LJ\2\nY\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\2\rthrottle\2\venable\2\nsetup\23treesitter-context\frequire\0" },
+    config = { "\27LJ\2\nY\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\2\venable\2\rthrottle\2\nsetup\23treesitter-context\frequire\0" },
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
     url = "https://github.com/romgrk/nvim-treesitter-context"
@@ -252,7 +252,7 @@ _G.packer_plugins = {
   playground = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/playground",
-    url = "https://github.com/stsewd/playground"
+    url = "https://github.com/nvim-treesitter/playground"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -303,6 +303,11 @@ _G.packer_plugins = {
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-llvm",
     url = "https://github.com/rhysd/vim-llvm"
   },
+  ["vim-nix"] = {
+    loaded = true,
+    path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-nix",
+    url = "https://github.com/LnL7/vim-nix"
+  },
   ["vim-searchlight"] = {
     loaded = true,
     path = "/Users/haze/.local/share/nvim/site/pack/packer/start/vim-searchlight",
@@ -333,42 +338,42 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: fidget.nvim
-time([[Config for fidget.nvim]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vfidget\frequire\0", "config", "fidget.nvim")
-time([[Config for fidget.nvim]], false)
--- Config for: nvim-lint
-time([[Config for nvim-lint]], true)
-try_loadstring("\27LJ\2\nW\0\0\3\0\6\0\b6\0\0\0'\2\1\0B\0\2\0025\1\4\0005\2\3\0=\2\5\1=\1\2\0K\0\1\0\rmarkdown\1\0\0\1\2\0\0\tvale\18linters_by_ft\tlint\frequire\0", "config", "nvim-lint")
-time([[Config for nvim-lint]], false)
--- Config for: dark-notify
-time([[Config for dark-notify]], true)
-try_loadstring("\27LJ\2\n£\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\b\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\3=\3\t\2B\0\2\1K\0\1\0\fschemes\1\0\0\nlight\1\0\1\16colorscheme\17github_light\tdark\1\0\0\1\0\1\16colorscheme\16github_dark\brun\16dark_notify\frequire\0", "config", "dark-notify")
-time([[Config for dark-notify]], false)
+-- Config for: nvim-treesitter-context
+time([[Config for nvim-treesitter-context]], true)
+try_loadstring("\27LJ\2\nY\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\2\venable\2\rthrottle\2\nsetup\23treesitter-context\frequire\0", "config", "nvim-treesitter-context")
+time([[Config for nvim-treesitter-context]], false)
 -- Config for: gitsigns.nvim
 time([[Config for gitsigns.nvim]], true)
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
 time([[Config for gitsigns.nvim]], false)
--- Config for: nvim-treesitter-context
-time([[Config for nvim-treesitter-context]], true)
-try_loadstring("\27LJ\2\nY\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\2\rthrottle\2\venable\2\nsetup\23treesitter-context\frequire\0", "config", "nvim-treesitter-context")
-time([[Config for nvim-treesitter-context]], false)
+-- Config for: nvim-lint
+time([[Config for nvim-lint]], true)
+try_loadstring("\27LJ\2\nW\0\0\3\0\6\0\b6\0\0\0'\2\1\0B\0\2\0025\1\4\0005\2\3\0=\2\5\1=\1\2\0K\0\1\0\rmarkdown\1\0\0\1\2\0\0\tvale\18linters_by_ft\tlint\frequire\0", "config", "nvim-lint")
+time([[Config for nvim-lint]], false)
+-- Config for: fidget.nvim
+time([[Config for fidget.nvim]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vfidget\frequire\0", "config", "fidget.nvim")
+time([[Config for fidget.nvim]], false)
+-- Config for: dark-notify
+time([[Config for dark-notify]], true)
+try_loadstring("\27LJ\2\n£\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\b\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\3=\3\t\2B\0\2\1K\0\1\0\fschemes\1\0\0\nlight\1\0\1\16colorscheme\17github_light\tdark\1\0\0\1\0\1\16colorscheme\16github_dark\brun\16dark_notify\frequire\0", "config", "dark-notify")
+time([[Config for dark-notify]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType zig ++once lua require("packer.load")({'zig.vim'}, { ft = "zig" }, _G.packer_plugins)]]
 vim.cmd [[au FileType fish ++once lua require("packer.load")({'vim-fish'}, { ft = "fish" }, _G.packer_plugins)]]
+vim.cmd [[au FileType zig ++once lua require("packer.load")({'zig.vim'}, { ft = "zig" }, _G.packer_plugins)]]
 vim.cmd [[au FileType javascript ++once lua require("packer.load")({'vim-js'}, { ft = "javascript" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
-time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], true)
-vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]]
-time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], false)
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]], true)
 vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]]
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-js/ftdetect/javascript.vim]], false)
+time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], true)
+vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]]
+time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/zig.vim/ftdetect/zig.vim]], false)
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]], true)
 vim.cmd [[source /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]]
 time([[Sourcing ftdetect script at: /Users/haze/.local/share/nvim/site/pack/packer/opt/vim-fish/ftdetect/fish.vim]], false)

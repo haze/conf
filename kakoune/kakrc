@@ -1,0 +1,140 @@
+# TODO(haze): Conditionally use LSP to format buffers
+
+# default tab size of 4 spaces
+set-option global tabstop 4
+set-option global ui_options terminal_status_on_top=yes
+set-option global disabled_hooks '.*-insert.*'
+
+hook global InsertChar \n %{
+    try %{ execute-keys -draft <semicolon> K <a-&> }
+}
+
+# trim trailing whitespace on the current line when leaving insert mode
+hook global ModeChange pop:insert:.* %{         
+    try %{ execute-keys -draft '<a-x>s\h+$<ret>d' }
+}
+
+# run the formatcmd for the current filetype on write
+hook global BufWritePre .* %{
+    try %{ format-buffer }
+}
+
+# use ripgrep for grepping
+set-option global grepcmd 'rg --column'
+
+add-highlighter global/ number-lines -hlcursor -separator ' '
+add-highlighter global/ wrap -indent -word
+add-highlighter global/ show-matching
+
+hook global RegisterModified '"' %{ nop %sh{
+  printf %s "$kak_main_reg_dquote" | pbcopy
+}}
+
+evaluate-commands %sh{
+    plugins="$kak_config/plugins"
+    mkdir -p "$plugins"
+    [ ! -e "$plugins/plug.kak" ] && \
+        git clone -q https://github.com/andreyorst/plug.kak.git "$plugins/plug.kak"
+    printf "%s\n" "source '$plugins/plug.kak/rc/plug.kak'"
+}
+
+hook global InsertCompletionShow .* %{
+    map window insert <tab> <c-n>
+    map window insert <up> <c-p>
+    map window insert <s-tab> <c-p>
+    map window insert <down> <c-n>
+}
+
+hook global InsertCompletionHide .* %{
+    unmap window insert <tab> <c-n>
+    unmap window insert <up> <c-p>
+    unmap window insert <s-tab> <c-p>
+    unmap window insert <down> <c-n>
+}
+
+map global normal <space> , -docstring 'leader'
+map -docstring 'typing too fast fix' global insert <s-space> <space>
+map -docstring 'typing too fast fix' global insert <s-backspace> <backspace>
+map -docstring 'experimental stuff' global normal x <a-d>
+map -docstring 'experimental stuff' global normal V X
+map -docstring 'experimental stuff' global normal y 'y;'
+
+plug "andreyorst/plug.kak" noload
+plug "andreyorst/smarttab.kak"
+plug "evanrelf/primer.kak" theme config %{ colorscheme primer }
+plug "andreyorst/fzf.kak" config %{
+  map -docstring 'fzf file search' global normal 'F' ': fzf-mode<ret>f'
+  map -docstring 'fzf file search' global normal '<s-tab>' ': fzf-mode<ret>g'
+} demand fzf-file %{
+    set-option global fzf_file_command 'fd'
+    set-option global fzf_file_preview_command 'bat -pp --color=always --highlight-line {2} {1}'
+} demand fzf-grep %{
+    set-option global fzf_grep_command 'rg'
+    set-option global fzf_grep_preview_command 'bat -pp --color=always --highlight-line {2} {1}'
+
+} demand fzf %{
+    set-option global fzf_preview_width '65%'
+}
+
+plug "alexherbo2/auto-pairs.kak"
+plug "delapouite/kakoune-palette"
+plug "insipx/kak-crosshairs" config %{
+    cursorline
+    set-face global crosshairs_line default,rgb:F5F5F5
+}
+# plug "haze/torresjrjr" load-path "~/src/torresjrjr.kak"
+plug "kak-lsp/kak-lsp" do %{
+    cargo install --locked --force --path .
+} config %{
+    define-command ne -docstring 'go to next error/warning from lsp' %{ lsp-find-error --include-warnings }
+    define-command pe -docstring 'go to previous error/warning from lsp' %{ lsp-find-error --previous --include-warnings }
+    define-command ee -docstring 'go to current error/warning from lsp' %{ lsp-find-error --include-warnings; lsp-find-error --previous --include-warnings }
+    define-command lsp-restart -docstring 'restart lsp server' %{ lsp-stop; lsp-start }
+
+    hook global WinSetOption filetype=(c|cpp|cc|rust|javascript|typescript|json) %{
+        map window user "l" ": enter-user-mode lsp<ret>" -docstring "LSP mode"
+        set-option window lsp_hover_max_lines 5
+
+        echo -debug "Enabling LSP for filtetype %opt{filetype}"
+        
+        set-face window DiagnosticError default,default,red+c
+        set-face window DiagnosticWarning default,default,blue+u
+
+        lsp-auto-hover-enable
+        lsp-enable-window
+        enable-auto-pairs
+    }
+
+    hook global WinSetOption filetype=(c|cpp|cc|rust|javascript|typescript) %{
+        set-option window lsp_auto_highlight_references true  
+    }
+
+
+    hook global WinSetOption filetype=(rust) %{
+        set window lsp_server_configuration rust.clippy_preference="on"
+        hook window BufWritePre .* %{
+            evaluate-commands %sh{
+                test -f rustfmt.toml && printf lsp-formatting-sync
+            }
+        }
+    }
+
+    hook global KakEnd .* lsp-exit
+}
+
+hook global WinSetOption filetype=(rust) %{
+	set window formatcmd 'rustfmt'
+}
+
+hook global WinSetOption filetype=(javascript|typescript) %{
+    set-option buffer formatcmd "prettier --stdin-filepath=%val{buffile}"
+}
+
+map global user d ': db<ret>' -docstring 'close buffer'
+map global user f ': fzf-mode<ret>f<ret>' -docstring 'fd files'
+map global user c ': comment-line<ret>' -docstring 'comment line'
+map global user i <a-i> -docstring 'select inside shortcut'
+map global user <tab> ': fzf-mode<ret>g<ret>' -docstring 'ripgrep files'
+
+set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
+

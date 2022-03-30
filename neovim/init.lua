@@ -19,6 +19,7 @@ g.python3_host_prog = '/opt/local/bin/python3'
 
 -- Zig statics 
 g.zig_std_dir = '/Users/haze/src/zig/lib/std'
+g.zig_fmt_autosave = 1
 
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {

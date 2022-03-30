@@ -8,9 +8,10 @@ end
 
 local custom_attach = function(client)
     print("LanguageServer Attatched");
-    if client.name ~= 'tsserver' then
-        vim.api.nvim_command("au BufWritePost <buffer> lua vim.lsp.buf.formatting_sync(nil, 3000)")
-    end
+    -- if client.name ~= 'tsserver' and client.name ~= "zls" and client.name ~= "rust-analyzer" then
+    --     -- vim.api.nvim_command("au BufWritePost <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+    --     -- print(client.name);
+    -- end
 
     map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
     map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -131,4 +132,3 @@ lspconfig.sumneko_lua.setup {
   on_attach = custom_attach,
   capabilities = capabilities,
 }
-
